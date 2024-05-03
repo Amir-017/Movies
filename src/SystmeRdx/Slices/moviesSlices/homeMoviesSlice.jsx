@@ -15,7 +15,7 @@ export const getMovies = createAsyncThunk(
 
     try {
       const allMovies = await axios({
-        method: "GET",
+        method: "get",
         url: "https://api.themoviedb.org/3/movie/now_playing",
         params: { language: "en-US", page: "1" },
         headers: {
