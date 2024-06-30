@@ -73,12 +73,12 @@ const HomeSeries = ({ items, data }) => {
                   </span>
                 </h1>
                 <h1 className="mt-3">
-                  <ReactStars
+                  {/* <ReactStars
                     count={5}
                     //   onChange={ratingChanged}
                     size={24}
                     color2={"#ffd700"}
-                  />
+                  /> */}
                   ,
                 </h1>
               </div>

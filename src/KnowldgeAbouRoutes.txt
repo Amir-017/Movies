@@ -1,0 +1,4 @@
+in folder movies:-
+.index & movieDetails together in moviesSlice
+.AllWorkers & ReviewMovie together in castAndCrew
+.videos & backdrops & Posters together in mediaSlice 

@@ -11,6 +11,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import ReactStars from "react-stars";
+import { Link } from "react-router-dom";
 export const HomeMovies = ({ data, items }) => {
   var settings = {
     dots: true,
@@ -63,7 +64,7 @@ export const HomeMovies = ({ data, items }) => {
               <div
                 variant="lead"
                 color="gray"
-                className="flex justify-evenly items-center"
+                className="flex justify-start items-center"
               >
                 <h1 className="text-white font-medium">
                   RATE :
@@ -72,16 +73,18 @@ export const HomeMovies = ({ data, items }) => {
                   </span>
                 </h1>
                 <h1 className="mt-3">
-                  <ReactStars count={5} size={24} color2={"#ffd700"} />,
+                  {/* <ReactStars count={5} size={24} color2={"#ffd700"} />, */}
                 </h1>
               </div>
               <div className="flex justify-center ">
-                <Button
-                  variant="outlined"
-                  className="border-double border-[#0DCAF0]  text-[#0DCAF0] hover:bg-[#0DCAF0] hover:text-[white]"
-                >
-                  Details
-                </Button>
+                <Link to={`/movies/${item.id}/title/${item.original_title}`}>
+                  <Button
+                    variant="outlined"
+                    className="border-double border-[#0DCAF0]  text-[#0DCAF0] hover:bg-[#0DCAF0] hover:text-[white]"
+                  >
+                    Details
+                  </Button>
+                </Link>
               </div>
             </CardBody>
           </Card>

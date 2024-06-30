@@ -10,7 +10,7 @@ const data = {
 
 export const getSeries = createAsyncThunk(
   "getSeries",
-  async (id, asyncThunk) => {
+  async (i, asyncThunk) => {
     const { rejectWithValue } = asyncThunk;
 
     try {
@@ -32,7 +32,7 @@ export const getSeries = createAsyncThunk(
 );
 
 const homeSeriesSlice = createSlice({
-  name: "homeMoviesSLice",
+  name: "homeSeriesSLice",
   initialState: data,
   extraReducers: (builder) => {
     builder.addCase(getSeries.pending, (state, action) => {
