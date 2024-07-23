@@ -3,12 +3,19 @@ import axios from "axios";
 
 const data = {
   movies: [],
+
   moviesLoading: false,
+  movieDetailsLoading: false,
   moviesError: null,
   counter: 1,
+  checkLoop: false,
   //
   movieDetails: {},
+  checkCount: false,
   // movieDetailsLoading :
+  collId: "",
+  checkId: false,
+  movies2: [],
 };
 
 export const getMoviesPage = createAsyncThunk(
@@ -64,24 +71,30 @@ const MoviesSlice = createSlice({
   name: "MoviesSLice",
   initialState: data,
   reducers: {
-    incress: (state, { payload }) => {
+    incress: (state) => {
       state.counter += 1;
-      state.checkMovies = false;
-      console.log(payload);
+      // state.checkMovies = false;
+      // console.log(payload);
+      state.checkCount = !state.checkCount;
     },
-    decress: (state, { payload }) => {
+    decress: (state) => {
       state.counter -= 1;
       state.checkMovies = false;
-      console.log(payload);
+      // console.log(payload);
+      state.checkCount = !state.checkCount;
     },
   },
   extraReducers: (builder) => {
     // all movies
     builder.addCase(getMoviesPage.pending, (state, action) => {
       state.moviesLoading = true;
+      // console.log("keeping");
     });
     builder.addCase(getMoviesPage.fulfilled, (state, action) => {
       state.movies = action.payload.results;
+      // action.payload.results.map((movie) => {
+      //   state.movies2 = movie;
+      // });
 
       state.moviesLoading = false;
     });
@@ -93,10 +106,12 @@ const MoviesSlice = createSlice({
 
     //movie details
     builder.addCase(getMovieDetails.pending, (state, action) => {
+      state.movieDetailsLoading = true;
       // console.log("keeping");
     });
     builder.addCase(getMovieDetails.fulfilled, (state, action) => {
       state.movieDetails = action.payload;
+      state.movieDetailsLoading = false;
     });
     builder.addCase(getMovieDetails.rejected, (state, action) => {
       console.log("error");
@@ -106,4 +121,4 @@ const MoviesSlice = createSlice({
 });
 
 export const myMovies = MoviesSlice.reducer;
-export const { incress, decress } = MoviesSlice.actions;
+export const { incress, decress, amer } = MoviesSlice.actions;

@@ -8,6 +8,11 @@
   box-sizing: border-box;
 }
 
-.slick-next {
-  right: 10px !important;
+.show-more-less-clickable:hover {
+  cursor: pointer;
+}
+
+.show-more-less-clickable {
+  color: aqua;
+  text-decoration: underline;
 }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { BiMoviePlay } from "react-icons/bi";
 import {
   Navbar,
   Collapse,
@@ -8,13 +9,28 @@ import {
   List,
   ListItem,
   Menu,
+  MenuItem,
   MenuHandler,
   MenuList,
   // MenuItem,
+  Input,
+  Avatar,
+  Badge,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getMoviesPage } from "../SystmeRdx/Slices/moviesSlices/moviesSlice";
+import {
+  aboutSearch,
+  getSearchMovies,
+  amer,
+  del,
+} from "../SystmeRdx/Slices/moviesSlices/searchMovies";
+import { aboutRecommend } from "../SystmeRdx/Slices/moviesSlices/mediaSlice";
 
 const Header = () => {
+  const [myCheck, setMyCheck] = useState("");
+
   function NavListMenu() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -69,35 +85,35 @@ const Header = () => {
         <Typography
           as={Link}
           to="/"
-          variant="small"
-          color="blue-gray"
+          // variant="small"
+          // color="white"
           className="font-medium"
         >
-          <ListItem className="flex items-center gap-2 py-2 pr-4">
+          <div className="text-gray-500 hover:bg-transparent   hover:text-white  flex items-center gap-2 py-2 pr-4 hover:text-xl ">
             Home
-          </ListItem>
+          </div>
         </Typography>
         <Typography
           as={Link}
           to="/movies"
-          variant="small"
-          color="blue-gray"
-          className="font-medium"
+          // variant=""
+          // color="white"
+          className="font-medium "
         >
-          <ListItem className="flex items-center gap-2 py-2 pr-4">
+          <div className="hover:bg-transparent  text-gray-500 hover:bg-black hover:text-white flex items-center gap-2 py-2 pr-4 hover:text-xl">
             Movies
-          </ListItem>
+          </div>
         </Typography>
         <Typography
           as={Link}
           to="/series"
-          variant="small"
-          color="blue-gray"
+          // variant="small"
+          // color="white"
           className="font-medium"
         >
-          <ListItem className="flex items-center gap-2 py-2 pr-4">
+          <div className="hover:bg-transparent text-gray-500 hover:bg-black hover:text-white  flex items-center gap-2 py-2 pr-4 hover:text-xl">
             Series
-          </ListItem>
+          </div>
         </Typography>
       </List>
     );
@@ -112,35 +128,133 @@ const Header = () => {
     );
   }, []);
 
+  //
+  const {
+    movies,
+    movies2,
+    checkLoop,
+    movieDetails: { belongs_to_collection },
+  } = useSelector((state) => state.myMovies);
+
+  const { moviesSearch, searchLength } = useSelector(
+    (state) => state.aboutSearchMovie
+  );
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getMoviesPage());
+  }, []);
+
+  const amer = (e) => {
+    dispatch(getSearchMovies(e));
+    setMyCheck(e);
+  };
+
   return (
-    <Navbar className="mx-auto max-w-screen-3xl px-4 py-2  ">
-      <div className="flex items-center justify-between text-blue-gray-900">
-        <Typography
-          as="a"
-          href="#"
-          variant="h6"
-          className="mr-4 cursor-pointer py-1.5 lg:ml-2"
-        >
-          Material Tailwind
-        </Typography>
-        <div className="hidden lg:block">
-          <NavList />
-        </div>
-        <div className="hidden gap-2 lg:flex">
-          <Button variant="gradient" size="sm">
-            Login
-          </Button>
+    <div className="  sticky top-0 z-10 h-max w-full  rounded-2xl px-4 py-2 lg:px-8 lg:py-4 f flex justify-center items-centers ">
+      <div className="relative w-full container mx-auto">
+        <Navbar className="bg-transparent border-[#0DCAF0] border-solid border-2">
+          <div className="flex items-center justify-between text-white">
+            <Typography
+              as={Link}
+              to="/"
+              variant="h6"
+              className="mr-4 text-2xl cursor-pointer py-1.5 lg:ml-2 flex"
+            >
+              Redux Movies
+              <span className=" text-3xl ms-1 text-[#0DCAF0]">
+                <BiMoviePlay />
+              </span>
+            </Typography>
+            <div className="hidden lg:block">
+              <NavList />
+            </div>
+
+            <div className="w-[35%] rounded-2xl border-2 border-y-brown-700 ">
+              <label className="relative block ">
+                <span className="sr-only">Search</span>
+                <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+                  <svg
+                    className="h-5 w-5 fill-slate-300"
+                    viewBox="0 0 20 20"
+                  ></svg>
+                </span>
+                <input
+                  className="placeholder:italic placeholder:text-slate-400 block bg-transparent w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                  placeholder="Search Movies ..."
+                  type="text"
+                  name="search"
+                  onKeyUp={(e) => amer(e.target.value)}
+                />
+              </label>
+            </div>
+            {/* w-full text-white  bg-transparent */}
+            <div className="hidden gap-2 lg:flex border-dotted hover:border-red-600  ">
+              <Button
+                color="white"
+                size="sm"
+                className="bg-transparent text-white border-green-600 border-2 p-3 hover:shadow-green-400"
+              >
+                Search Movies
+              </Button>{" "}
+              <Button
+                color="white"
+                size="sm"
+                className="bg-transparent text-white border-red-600 border-2 p-3 hover:shadow-red-900"
+              >
+                Login
+              </Button>
+            </div>
+          </div>
+          <Collapse open={openNav}>
+            <NavList />
+            <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden ">
+              <Button color="white" size="sm" className="bg-transparent">
+                Search Movies
+              </Button>
+            </div>
+          </Collapse>
+        </Navbar>
+        <div className="relative">
+          {!searchLength ? (
+            <div className=" overflow-auto w-96 h-96 absolute right-[18rem]  ">
+              <Badge
+                onClick={() => dispatch(del())}
+                content="Del"
+                className="absolute right-[9em] top-[4em] text-xl font-bold"
+              >
+                <div className=" mt-5 rounded-2xl  grid gap-y-6 bg-gray-900  ">
+                  {moviesSearch &&
+                    moviesSearch.map((movie, i) => (
+                      <Link
+                        to={`/movies/${movie?.id}/title/${movie?.original_title}`}
+                        className="relative rounded-2xl  text-2xl hover:bg-[#0DCAF0]  hover:h-[3rem]  hover:text-3xl "
+                        key={i}
+                      >
+                        <Button
+                          onClick={() => dispatch(aboutSearch())}
+                          className="bg-transparent hover:text-black w-full text-start"
+                        >
+                          {movie?.title}
+                        </Button>
+                        <Avatar
+                          src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movie?.poster_path}`}
+                          alt="avatar"
+                          className="absolute right-3"
+                        />
+
+                        <hr className="mt-4" />
+                      </Link>
+                    ))}
+                </div>
+              </Badge>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
-      <Collapse open={openNav}>
-        <NavList />
-        <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <Button variant="gradient" size="sm" fullWidth>
-            Login
-          </Button>
-        </div>
-      </Collapse>
-    </Navbar>
+    </div>
   );
 };
 export default Header;

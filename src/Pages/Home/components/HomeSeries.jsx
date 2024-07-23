@@ -9,28 +9,33 @@ import {
 } from "@material-tailwind/react";
 import Slider from "react-slick";
 import ReactStars from "react-stars";
+import { Link } from "react-router-dom";
 
 // import Slider from "react-slick";
 
 const HomeSeries = ({ items, data }) => {
-  var settings = {
+  const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 50,
   };
+
   // console.log(items);
   return (
-    <div className="rounded-md">
+    <div className="container mx-auto">
       <h1 className=" text-4xl ms-9 text-blue-500 mb-5"> Series</h1>
 
-      <Slider {...settings} className="">
+      <Slider {...settings} className="w-full grid justify-items-center">
         {data.map((item, i) => (
-          <div className="px-10 rounded" key={i}>
+          <div className="px-10 " key={i}>
             <img
               src={`https://media.themoviedb.org/t/p/w220_and_h330_face${item.backdrop_path}`}
               alt="logo"
+              className="rounded-2xl"
             />
           </div>
         ))}
@@ -40,12 +45,15 @@ const HomeSeries = ({ items, data }) => {
       <div className=" flex justify-center items-center gap-8 flex-wrap px-10 w-full relative mt-10 mb-10 rounded-md ">
         {items.map((item, i) => (
           // <div className="" >
-          <Card className="w-[19rem] flex justify-center items-center " key={i}>
+          <Card
+            className="w-[19rem] flex justify-center items-center  bg-gray-900"
+            key={i}
+          >
             <CardHeader
               floated={false}
               shadow={false}
               color="transparent"
-              className="m-0 rounded-none w-full"
+              className="m-0 rounded-2xl w-full"
             >
               <img
                 src={`https://media.themoviedb.org/t/p/w220_and_h330_face${item.backdrop_path}`}
@@ -53,7 +61,7 @@ const HomeSeries = ({ items, data }) => {
                 width="100%"
               />
             </CardHeader>
-            <CardBody className="bg-gray-800 w-[19rem]">
+            <CardBody className="bg-gray-900 w-[19rem] rounded-2xl grid gap-y-4">
               <Typography
                 variant="h4"
                 color="blue-gray"
@@ -61,11 +69,7 @@ const HomeSeries = ({ items, data }) => {
               >
                 TITLE : {item.name}
               </Typography>
-              <div
-                variant="lead"
-                color="gray"
-                className="flex justify-evenly items-center"
-              >
+              <div variant="lead" color="gray" className="flex ">
                 <h1 className="text-white font-medium">
                   RATE :
                   <span className="text-[#0DCAF0] font-semibold">
@@ -83,12 +87,16 @@ const HomeSeries = ({ items, data }) => {
                 </h1>
               </div>
               <div className="flex justify-center ">
-                <Button
-                  variant="outlined"
-                  className="border-double border-[#0DCAF0]  text-[#0DCAF0] hover:bg-[#0DCAF0] hover:text-[white]"
+                <Link
+                // to={`/movies/${item.id}/title/${item.original_title}`}
                 >
-                  Details
-                </Button>
+                  <Button
+                    variant="outlined"
+                    className="border-double border-[#0DCAF0]  text-[#0DCAF0] hover:bg-[#0DCAF0] hover:text-black"
+                  >
+                    Details
+                  </Button>
+                </Link>
               </div>
             </CardBody>
           </Card>

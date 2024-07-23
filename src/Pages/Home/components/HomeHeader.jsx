@@ -12,7 +12,7 @@ const HomeHeader = () => {
       <div className="grid grid-cols-2 items-center justify-items-center w-full">
         <div className="w-[100%] ">
           <h1 className="font-bold text-3xl text-center h-[2em]">SORT BY</h1>
-          <div className="flex  justify-evenly items-center">
+          <div className="flex flex-col gap-y-3  justify-evenly items-center md:flex md:flex-row ">
             <Button
               variant="outlined"
               className="text-white hover:bg-white hover:text-black border-white"
@@ -39,9 +39,9 @@ const HomeHeader = () => {
             </Button>
           </div>
         </div>
-        <div className="w-[100%]  ms-[10em]">
-          <h1 className="font-bold text-3xl text-center h-[2em]">SORT ORDER</h1>
-          <div className="flex justify-evenly items-center">
+        <div className="w-[50%]  ms-[10em]">
+          <h1 className="font-bold text-3xl text-center mb-3">SORT ORDER</h1>
+          <div className="flex flex-col gap-y-3 md:flex md:flex-row justify-evenly items-center">
             <Button
               variant="outlined"
               className="text-white hover:bg-white hover:text-black border-white"

@@ -6,6 +6,7 @@ const data = {
   moviesHomeLoading: false,
   moviesHomeError: null,
   topMovies: [],
+  movieDet: {},
 };
 
 export const getMovies = createAsyncThunk(

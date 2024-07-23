@@ -17,10 +17,11 @@ import {
   getMoviesPage,
 } from "./SystmeRdx/Slices/moviesSlices/moviesSlice";
 import axios from "axios";
+import BackDropsMovie from "./Pages/movies/BackDropsMovie";
+import PostersMovie from "./Pages/movies/PostersMovie";
+import AboutActor from "./Pages/movies/AboutActor";
 
 const App = () => {
-  const [nameContent, setNameContent] = useState([]);
-
   return (
     <div>
       <Header />
@@ -39,13 +40,24 @@ const App = () => {
           path="/movieDetails/:idMovie/title/:nameMovie/vid"
           element={<VideoMovies />}
         />
-
+        <Route
+          path="/movieDetails/:idMovie/title/:nameMovie/backdrops"
+          element={<BackDropsMovie />}
+        />
+        <Route
+          path="/movieDetails/:idMovie/title/:nameMovie/posters"
+          element={<PostersMovie />}
+        />
+        <Route
+          path="/person/:idactor/hisname/:nameactor"
+          element={<AboutActor />}
+        />
         <Route path="/movieDetails/:idMovie" element={<ReviewMovie />} />
         <Route path="/" element={<Home />} />
         <Route path="/series" element={<Series />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };

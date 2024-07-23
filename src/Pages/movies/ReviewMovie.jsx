@@ -40,7 +40,7 @@ const ReviewMovie = () => {
             <Button
               onClick={backAstep}
               variant="outlined"
-              className=" border-[#0DCAF0]  text-[#0DCAF0] hover:bg-[#0DCAF0] hover:text-[white]"
+              className=" border-[#0DCAF0]  text-[#0DCAF0] hover:bg-[#0DCAF0] hover:text-black"
             >
               Back a step
             </Button>

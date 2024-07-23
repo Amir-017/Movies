@@ -47,14 +47,14 @@ const AllWorkers = () => {
         {/* </div> */}
 
         <div className="w-full flex flex-col justify-center  px-10 ">
-          <h1 className="text-white font-bold text-3xl">
+          <h1 className="text-white font-bold  text-3xl">
             {movieDetails.title}
           </h1>
           <div className="mt-5">
             <Button
               onClick={backAstep}
               variant="outlined"
-              className=" border-[#0DCAF0]  text-[#0DCAF0] hover:bg-[#0DCAF0] hover:text-[white]"
+              className=" border-[#0DCAF0]  text-[#0DCAF0] hover:bg-[#0DCAF0] hover:text-black"
             >
               Back a step
             </Button>
@@ -69,7 +69,7 @@ const AllWorkers = () => {
           {cast &&
             cast.map((actor, i) => (
               <div className="" key={i}>
-                <Card className="w-[15rem] h-[24rem] bg-[#212529] rounded shadow-gray-900 flex my-10">
+                <Card className="w-[15rem] h-[26rem] bg-[#212529] rounded shadow-gray-900 flex my-10">
                   <CardHeader
                     floated={false}
                     shadow={false}
@@ -80,19 +80,16 @@ const AllWorkers = () => {
                       <img
                         src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${actor.profile_path}`}
                         alt="ui/ux review check"
-                        width="100%"
+                        // width="100%"
                       />
                     ) : (
                       <img src={img} width="100%" />
                     )}
                   </CardHeader>
-                  <CardBody className="font-bold text-2xl">
-                    <div
-                      variant="h4"
-                      className="flex flex-col  text-white gap-y-5"
-                    >
+                  <CardBody className="font-bold py-5">
+                    <div variant="h4" className="flex flex-col  text-white ">
                       <h1> .{actor.name}</h1>
-                      <h1 className="text-xl font-medium text-white">
+                      <h1 className="text-xl font-medium text-yellow-800 ">
                         {actor.character}
                       </h1>
                     </div>
@@ -139,37 +136,30 @@ const AllWorkers = () => {
                       <img
                         src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${actor.profile_path}`}
                         alt="ui/ux review check"
-                        width="100%"
+                        // width="100%"
                       />
                     ) : (
                       <img src={img} width="100%" />
                     )}
                   </CardHeader>
-                  <CardBody className="font-bold text-2xl">
-                    <div
-                      variant="h4"
-                      className="flex flex-col  text-white gap-y-5"
-                    >
-                      <h1>
-                        {" ."}
-                        {actor.known_for_department == "Writing"
-                          ? actor.name
-                          : actor.known_for_department == "Production"
-                          ? actor.name
-                          : actor.known_for_department == "Camera"
-                          ? actor.name
-                          : actor.known_for_department == "Editing"
-                          ? actor.name
-                          : actor.known_for_department == "Acting"
-                          ? actor.name
-                          : actor.known_for_department == "Art"
-                          ? actor.name
-                          : actor.known_for_department == "Visual Effects"
-                          ? actor.name
-                          : actor.name}
-                      </h1>
-                      <h1 className="text-yellow-800 font-bold text-3xl">
-                        {" "}
+                  <CardBody className="font-bold py-5">
+                    <div variant="h4" className="flex flex-col  text-white ">
+                      {actor.known_for_department == "Writing"
+                        ? actor.name
+                        : actor.known_for_department == "Production"
+                        ? actor.name
+                        : actor.known_for_department == "Camera"
+                        ? actor.name
+                        : actor.known_for_department == "Editing"
+                        ? actor.name
+                        : actor.known_for_department == "Acting"
+                        ? actor.name
+                        : actor.known_for_department == "Art"
+                        ? actor.name
+                        : actor.known_for_department == "Visual Effects"
+                        ? actor.name
+                        : actor.name}
+                      <h1 className="text-xl font-medium text-yellow-800 ">
                         {actor.known_for_department == "Writing"
                           ? actor.job
                           : actor.known_for_department == "Production"
