@@ -29,7 +29,7 @@ export const HomeMovies = ({ data, items }) => {
 
       <Slider {...settings} className="w-full">
         {data.map((item, i) => (
-          <div className="px-10 " key={i}>
+          <div className="px-10 sm:w-full" key={i}>
             <img
               src={`https://media.themoviedb.org/t/p/w220_and_h330_face${item.backdrop_path}`}
               alt=""
@@ -39,9 +39,9 @@ export const HomeMovies = ({ data, items }) => {
           </div>
         ))}
       </Slider>
-      <h1 className=" text-4xl ms-9 text-blue-500 mb-5 mt-5">Top Movies</h1>
+      <h1 className=" text-4xl  text-blue-500 mb-5 mt-5">Top Movies</h1>
 
-      <div className=" flex justify-center items-center gap-8 flex-wrap px-10  relative mt-10 mb-10  ">
+      <div className="container mx-auto flex justify-center items-center gap-8 flex-wrap px-10   mt-10 mb-10  ">
         {items.map((item, i) => (
           // <div className="" >
           <Card

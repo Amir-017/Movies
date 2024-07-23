@@ -27,6 +27,7 @@ import {
   del,
 } from "../SystmeRdx/Slices/moviesSlices/searchMovies";
 import { aboutRecommend } from "../SystmeRdx/Slices/moviesSlices/mediaSlice";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/16/solid";
 
 const Header = () => {
   const [myCheck, setMyCheck] = useState("");
@@ -151,9 +152,9 @@ const Header = () => {
   };
 
   return (
-    <div className="  sticky top-0 z-10 h-max w-full  rounded-2xl px-4 py-2 lg:px-8 lg:py-4 f flex justify-center items-centers ">
+    <div className="  sticky top-0 z-10 h-max w-full  rounded-2xl px-4 py-2 lg:px-8 lg:py-4  f flex justify-center items-centers ">
       <div className="relative w-full container mx-auto">
-        <Navbar className="bg-transparent border-[#0DCAF0] border-solid border-2">
+        <Navbar className="bg-transparent border-[#0DCAF0] border-solid border-2 ">
           <div className="flex items-center justify-between text-white">
             <Typography
               as={Link}
@@ -205,7 +206,20 @@ const Header = () => {
                 Login
               </Button>
             </div>
+            <IconButton
+              variant="text"
+              className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+              ripple={false}
+              onClick={() => setOpenNav(!openNav)}
+            >
+              {openNav ? (
+                <XMarkIcon className="h-6 w-6" strokeWidth={2} />
+              ) : (
+                <Bars3Icon className="h-6 w-6" strokeWidth={2} />
+              )}
+            </IconButton>
           </div>
+
           <Collapse open={openNav}>
             <NavList />
             <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden ">

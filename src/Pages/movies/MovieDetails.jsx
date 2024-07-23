@@ -165,12 +165,12 @@ const MovieDetails = () => {
             </div>
           ) : (
             <div
-              className={`w-full    bg-no-repeat bg-center bg-cover mb-10 `}
+              className={`w-full    bg-no-repeat bg-center bg-cover mb-10 sm:w-full`}
               style={{
                 backgroundImage: `url('https://image.tmdb.org/t/p/w600_and_h900_bestv2${movieDetails.backdrop_path}')`,
               }}
             >
-              <div className="w-full">
+              <div className="w-full  ">
                 {/* <div className="w-full opacity-50"></div> */}
                 <div className="w-full pt-5 text-center font-bold grid gap-y-5">
                   <h1 className="text-[#0DCAF0]  text-3xl ">Movie Details</h1>
@@ -198,11 +198,11 @@ const MovieDetails = () => {
                     {/* </div> */}
                   </div>
                 </div>
-                <div className="w-full container mx-auto flex  mt-10">
-                  <div className=" mb-5 w-[60%]">
+                <div className="w-full container mx-auto flex sm:flex-col  mt-10 ">
+                  <div className=" mb-5 w-full  sm:flex sm:justify-center">
                     <img
                       src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movieDetails.poster_path}`}
-                      className="w-[100%] h-[100%] "
+                      className="w-[60%] h-[60%]  "
                     />
                   </div>
                   <div className="flex flex-col ms-10 ">
@@ -354,8 +354,8 @@ const MovieDetails = () => {
             </svg>
           </div>
         ) : (
-          <div className="grid grid-cols-8 w-full  container mx-auto ">
-            <div className="  col-span-7 w-[75%]  overflow-auto flex gap-8">
+          <div className="flex justify-evenly w-full   ">
+            <div className="   w-[62%]  overflow-auto flex gap-5">
               {castShown &&
                 castShown.map((actor, i) => (
                   <div className="" key={i}>
@@ -386,7 +386,7 @@ const MovieDetails = () => {
                   </div>
                 ))}
             </div>
-            <div className="w-[25%] flex justify-center">
+            <div className="  ">
               <div className="flex gap-x-3 text-[#0DCAF0] text-3xl">
                 {/* amer */}
                 <h1 className="hover:text-4xl">

@@ -6,13 +6,13 @@ module.exports = withMT({
   theme: {
     extend: {},
     screens: {
-      sm: "640px",
+      sm: "450px",
       // => @media (min-width: 640px) { ... }
 
-      md: "768px",
+      md: "1024px",
       // => @media (min-width: 1024px) { ... }
 
-      lg: "1024px",
+      lg: "1440px",
       // => @media (min-width: 1280px) { ... }
     },
   },
