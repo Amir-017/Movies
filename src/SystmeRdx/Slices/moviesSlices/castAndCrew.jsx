@@ -106,7 +106,7 @@ const castAndCrew = createSlice({
   name: "crew and cast",
   initialState: data,
   extraReducers: (builder) => {
-    // all movies
+    // all cast and crew
     builder.addCase(getCastCrew.pending, (state, action) => {
       state.castAndCrewLoading = true;
       // console.log("keeping");

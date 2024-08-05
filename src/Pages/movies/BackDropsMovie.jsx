@@ -29,19 +29,21 @@ const BackDropsMovie = () => {
 
   return (
     <div className="my-10">
-      <div className=" w-full  bg-[#212529] px-10 pt-5 flex mb-10">
+      <div className=" w-full  bg-[#212529] px-10 pt-5 flex justify-center items-center flex-col md:flex-row md:justify-start ">
+        {/* <div className=""> */}
         <img
           src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movieDetails.poster_path}`}
           alt="logo"
-          width="12%"
-          className="rounded mb-5"
+          // width="20%"
+          className="rounded mb-5 w-[30%] md:w-[12%]"
         />
+        {/* </div> */}
 
-        <div className="w-full flex flex-col justify-center  px-10 ">
-          <h1 className="text-white font-bold  text-3xl">
+        <div className="w-full flex  flex-col justify-start   px-0 md:justify-center md:px-10 ">
+          <h1 className="text-white font-bold  text-3xl text-center md:text-start">
             {movieDetails.title}
           </h1>
-          <div className="mt-5">
+          <div className="my-5 flex justify-center md:justify-start">
             <Button
               onClick={backAstep}
               variant="outlined"
@@ -55,11 +57,12 @@ const BackDropsMovie = () => {
       <h1 className="text-white text-4xl container mx-auto my-10">
         All BackDrops :
       </h1>
-      <div className="w-full flex flex-wrap gap-10 container mx-auto">
+      <div className="w-full grid justify-items-center grid-cols-1  gap-10 container mx-auto md:grid-cols-2 lg:grid-cols-3">
         {backdrops &&
           backdrops.map((imgBack, i) => (
             <div className="" key={i}>
               <img
+                className="rounded-2xl"
                 alt=""
                 src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${imgBack.file_path}`}
                 width={200}

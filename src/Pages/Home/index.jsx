@@ -8,20 +8,21 @@ import { getSeries } from "../../SystmeRdx/Slices/seriesSlices/homeSeriesSlice";
 
 const Home = () => {
   const { moviesHome, topMovies } = useSelector((state) => state.movies);
-  const { seriesHome, topSeries } = useSelector((state) => state.series);
+  const { series, topSeries } = useSelector((state) => state.series);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getMovies());
     dispatch(getSeries());
   }, []);
-
+  // console.log(series);
+  // console.log(seriesHome);
   return (
-    <div className=" bg-black ">
+    <div className=" bg-black tablet:bg-green-600">
       <HomeHeader />
       <HomeMovies data={moviesHome} items={topMovies} />
 
-      <HomeSeries items={topSeries} data={seriesHome} />
+      <HomeSeries items={topSeries} data={series} />
     </div>
   );
 };

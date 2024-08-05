@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMovieDetails } from "../../SystmeRdx/Slices/moviesSlices/moviesSlice";
-import { useNavigate, useParams } from "react-router-dom";
+import {
+  getCastCrewSeries,
+  getSeriesDetails,
+} from "../../SystmeRdx/Slices/seriesSlices/homeSeriesSlice";
 import { Button } from "@material-tailwind/react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -12,45 +15,45 @@ import {
   Avatar,
   Tooltip,
 } from "@material-tailwind/react";
-import img from "../../Photos/th.jpeg";
-import { getCastCrew } from "../../SystmeRdx/Slices/moviesSlices/castAndCrew";
-const AllWorkers = () => {
-  const { movieDetails } = useSelector((state) => state.myMovies);
+const SeriesWorker = () => {
+  const { idseries, nameSeries } = useParams();
   const dispatch = useDispatch();
-  const { idMovie, nameMovie } = useParams();
-  // console.log(idMovie);
-  useEffect(() => {
-    dispatch(getMovieDetails(idMovie));
-    dispatch(getCastCrew(idMovie));
-  }, []);
-  const {
-    castAndCrew: { cast, crew },
-    castShown,
-  } = useSelector((state) => state.AllcastAndCrew);
-  // console.log(cast);
 
   const navigate = useNavigate();
+
+  const {
+    seriesDetails,
+    //
+    castAndCrewSeries: { cast, crew },
+  } = useSelector((state) => state.series);
+  useEffect(() => {
+    dispatch(getSeriesDetails(idseries));
+    dispatch(getCastCrewSeries(idseries));
+  }, []);
+  // console.log(seriesDetails);
   const backAstep = () => {
     navigate(-1);
   };
-  // console.log(cast);
+
+  // console.log(seriesDetails);
   return (
+    // <div className=""></div>
     <div className=" w-full">
-      <div className=" w-full  bg-[#212529] px-10 pt-5 flex justify-center items-center flex-col md:flex-row md:justify-start ">
+      <div className=" w-full  bg-[#212529] px-10 pt-5 flex ">
         {/* <div className=""> */}
         <img
-          src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movieDetails.poster_path}`}
+          src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${seriesDetails.poster_path}`}
           alt="logo"
-          // width="20%"
-          className="rounded mb-5 w-[30%] md:w-[12%]"
+          width="12%"
+          className="rounded mb-5"
         />
         {/* </div> */}
 
-        <div className="w-full flex  flex-col justify-start   px-0 md:justify-center md:px-10 ">
-          <h1 className="text-white font-bold  text-3xl text-center md:text-start">
-            {movieDetails.title}
+        <div className="w-full flex flex-col justify-center  px-10 ">
+          <h1 className="text-white font-bold  text-3xl">
+            {seriesDetails.name}
           </h1>
-          <div className="my-5 flex justify-center md:justify-start">
+          <div className="mt-5">
             <Button
               onClick={backAstep}
               variant="outlined"
@@ -61,7 +64,7 @@ const AllWorkers = () => {
           </div>
         </div>
       </div>
-      <div className=" flex justify-between   container mx-auto mt-10 flex-col md:flex-row">
+      <div className="grid grid-cols-2  container mx-auto mt-10">
         <div className="">
           <h1 className="text-3xl text-white container mx-auto py-5 font-bold ">
             Cast : <span className="text-[#0DCAF0] "></span>
@@ -196,4 +199,4 @@ const AllWorkers = () => {
   );
 };
 
-export default AllWorkers;
+export default SeriesWorker;

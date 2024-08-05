@@ -14,24 +14,64 @@ import { Link } from "react-router-dom";
 // import Slider from "react-slick";
 
 const HomeSeries = ({ items, data }) => {
-  const settings = {
+  var settings = {
     dots: true,
     infinite: true,
+    speed: 2000,
     slidesToShow: 4,
     slidesToScroll: 1,
-    autoplay: true,
-    speed: 2000,
+    initialSlide: 0,
     autoplaySpeed: 50,
+    autoplay: true,
+
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+          autoplaySpeed: 50,
+          autoplay: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+          autoplaySpeed: 50,
+          autoplay: true,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+          autoplaySpeed: 50,
+          autoplay: true,
+        },
+      },
+    ],
   };
 
   // console.log(items);
   return (
     <div className="container mx-auto">
-      <h1 className=" text-4xl ms-9 text-blue-500 mb-5"> Series</h1>
+      <h1 className=" text-4xl ms-9 text-blue-500 mb-5 text-center  md:text-start">
+        {" "}
+        Series
+      </h1>
 
       <Slider {...settings} className="w-full grid justify-items-center">
         {data.map((item, i) => (
-          <div className="px-10 " key={i}>
+          <div className="px-10 handlediv" key={i}>
             <img
               src={`https://media.themoviedb.org/t/p/w220_and_h330_face${item.backdrop_path}`}
               alt="logo"
@@ -40,7 +80,9 @@ const HomeSeries = ({ items, data }) => {
           </div>
         ))}
       </Slider>
-      <h1 className=" text-4xl ms-9 text-blue-500 mb-5 mt-5">Top Series</h1>
+      <h1 className=" text-4xl ms-9 text-blue-500 mb-5 mt-10 text-center  md:text-start">
+        Top Series
+      </h1>
 
       <div className=" flex justify-center items-center gap-8 flex-wrap px-10 w-full relative mt-10 mb-10 rounded-md ">
         {items.map((item, i) => (

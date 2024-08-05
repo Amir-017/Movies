@@ -16,3 +16,20 @@
   color: aqua;
   text-decoration: underline;
 }
+
+.dell {
+  cursor: pointer !important;
+}
+
+.handlediv {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.slick-next {
+  right: 0px !important;
+}
+
+.slick-prev {
+  left: 0px !important;
+}

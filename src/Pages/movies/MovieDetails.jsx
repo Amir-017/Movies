@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getMovieDetails } from "../../SystmeRdx/Slices/moviesSlices/moviesSlice";
+import img from "../../Photos/th.jpeg";
+
 import {
   getCastCrew,
   getReviewMovie,
@@ -165,7 +167,7 @@ const MovieDetails = () => {
             </div>
           ) : (
             <div
-              className={`w-full    bg-no-repeat bg-center bg-cover mb-10 sm:w-full`}
+              className={`w-full    bg-no-repeat bg-center bg-cover mb-10 `}
               style={{
                 backgroundImage: `url('https://image.tmdb.org/t/p/w600_and_h900_bestv2${movieDetails.backdrop_path}')`,
               }}
@@ -177,7 +179,7 @@ const MovieDetails = () => {
                   <h1 className="text-light-green-100 text-3xl">
                     {movieDetails.title}
                   </h1>
-                  <div className="w-full flex  justify-center ps-16 text-2xl">
+                  <div className="w-full flex flex-col md:flex-row  justify-center  text-2xl">
                     <h1 className="text-light-green-100 text-xl font-bold">
                       {movieDetails.release_date} (
                       {movieDetails.original_language})
@@ -198,11 +200,11 @@ const MovieDetails = () => {
                     {/* </div> */}
                   </div>
                 </div>
-                <div className="w-full container mx-auto flex sm:flex-col  mt-10 ">
+                <div className="w-full container mx-auto flex flex-col md:flex-col lg:flex-row  mt-10 ">
                   <div className=" mb-5 w-full  sm:flex sm:justify-center">
                     <img
                       src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movieDetails.poster_path}`}
-                      className="w-[60%] h-[60%]  "
+                      className="w-[50%] md:w-[70%] lg:w-full  "
                     />
                   </div>
                   <div className="flex flex-col ms-10 ">
@@ -367,10 +369,14 @@ const MovieDetails = () => {
                           color="transparent"
                           className="m-0 rounded "
                         >
-                          <img
-                            src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${actor.profile_path}`}
-                            alt="ui/ux review check"
-                          />
+                          {actor.profile_path ? (
+                            <img
+                              src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${actor.profile_path}`}
+                              alt="ui/ux review check"
+                            />
+                          ) : (
+                            <img src={img} />
+                          )}
                         </CardHeader>
                         <CardBody className=" text-1xl">
                           <div
@@ -426,11 +432,11 @@ const MovieDetails = () => {
           </div>
         )}
 
-        <div className="container mx-auto py-5  text-[#0DCAF0] text-xl ">
+        <div className="container mx-auto py-5 ps-5  text-[#0DCAF0]  ">
           <Button
             onClick={aboutCastAndCrew}
             // to={`/movieDetails/${idMovie}/title/${nameMovie}`}
-            className="text-gray-500 text-xl hover:text-white "
+            className="text-gray-500  hover:text-white "
           >
             Full Cast And Crew
           </Button>
@@ -465,8 +471,10 @@ const MovieDetails = () => {
           </div>
         ) : (
           <div className=" w-full flex flex-col  text-white container mx-auto">
-            <h1 className="text-[#0DCAF0] text-3xl">Social</h1>
-            <h1 className="text-white font-bold  mt-10 text-2xl">
+            <h1 className="text-[#0DCAF0] text-3xl text-center md:text-start mt-5">
+              Social
+            </h1>
+            <h1 className="text-white font-bold  mt-10 text-2xl text-center md:text-start mb-10 md:mb-0">
               REVIEWS <span className="text-[#0DCAF0]">{reviews.length}</span>
             </h1>
             {reviews.length >= 1 ? (
@@ -474,7 +482,10 @@ const MovieDetails = () => {
                 {reviews.map(
                   (review, i) =>
                     i == 0 && (
-                      <div className="" key={i}>
+                      <div
+                        className="flex justify-center items-center md:flex md:justify-start"
+                        key={i}
+                      >
                         <div className=" w-[75%] bg-[#212529]  rounded-2xl py-5">
                           <div className="container mx-auto w-[70%]  flex flex-col gap-5 mt-5">
                             <h1 className="text-3xl">
@@ -523,9 +534,9 @@ const MovieDetails = () => {
             {reviews.length >= 1 && (
               <Link
                 to={`/movieDetails/${idMovie}`}
-                className="w-1/2 text-2xl text-gray-700   py-5 hover:text-[white]"
+                className="w-full text-xl text-gray-700   py-5 hover:text-[white] text-center md:text-start underline "
               >
-                Click To Read All Reviews
+                All Reviews
               </Link>
             )}
           </div>
@@ -560,13 +571,19 @@ const MovieDetails = () => {
           </div>
         ) : (
           <div className="  flex flex-col gap-8 text-white   container mx-auto mt-10 ">
-            <h1 className="text-[#0DCAF0] text-3xl">Media</h1>
+            <h1 className="text-[#0DCAF0] text-3xl text-center md:text-start">
+              Media
+            </h1>
             <div className="">
-              <Tabs value="html" className="">
-                <TabsHeader className="w-[40%]    ">
+              <Tabs value="html" className="text-center md:text-start">
+                <TabsHeader className="w-[30%] flex flex-col items-center justify-center lg:flex-row lg:w-[40%]    ">
                   {data.map(({ label, value, name }) => (
-                    <Tab key={value} value={value} className=" ">
-                      <div className="text-none    ">
+                    <Tab
+                      key={value}
+                      value={value}
+                      className="flex justify-center md:justify-start "
+                    >
+                      <div className="text-none ">
                         {value == "html" ? (
                           <h1 className="text-black focus:text-5xl ">
                             {label} ({videoMovie && videoMovie.length})
@@ -581,6 +598,7 @@ const MovieDetails = () => {
                           </h1>
                         )}
                       </div>
+                      <hr className="" />
                     </Tab>
                   ))}
                 </TabsHeader>
@@ -617,12 +635,15 @@ const MovieDetails = () => {
                           </TabPanel>
                           <TabPanel value={value} className=" ">
                             {value == "react" && (
-                              <div className="  flex  gap-6  ">
+                              <div className="  flex flex-col  md:flex-row  gap-6  ">
                                 {backdrops &&
                                   backdrops.map(
                                     (drop, i) =>
                                       i <= 5 && (
-                                        <div className="" key={i}>
+                                        <div
+                                          className="flex justify-center "
+                                          key={i}
+                                        >
                                           <img
                                             src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${drop.file_path}`}
                                             alt=""
@@ -638,12 +659,15 @@ const MovieDetails = () => {
 
                           <TabPanel value={value}>
                             {value == "vue" && (
-                              <div className=" flex  gap-6 ">
+                              <div className=" flex  gap-6  flex-col  md:flex-row ">
                                 {posters &&
                                   posters.map(
                                     (poster, i) =>
                                       i <= 5 && (
-                                        <div className="" key={i}>
+                                        <div
+                                          className="flex justify-center"
+                                          key={i}
+                                        >
                                           <img
                                             src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${poster.file_path}`}
                                             alt=""
@@ -662,9 +686,9 @@ const MovieDetails = () => {
                                   videoMovie.length > 2 && (
                                     <Button
                                       onClick={aboutVideo}
-                                      className="text-inherit text-1xl hover:text-[white]  "
+                                      className="text-inherit  hover:text-[white]  "
                                     >
-                                      Click To See All Video
+                                      All Videos
                                     </Button>
                                   )
                                 : value == "react"
@@ -673,9 +697,9 @@ const MovieDetails = () => {
                                     <Button
                                       onClick={aboutBackDropsMovie}
                                       // to="/"
-                                      className="text-inherit text-1xl hover:text-[white] "
+                                      className="text-inherit  hover:text-[white] "
                                     >
-                                      Click To See All BackDrops
+                                      All BackDrops
                                     </Button>
                                   )
                                 : value == "vue"
@@ -684,9 +708,9 @@ const MovieDetails = () => {
                                     <Button
                                       onClick={aboutPostersMovie}
                                       // to="/"
-                                      className="text-inherit text-1xl hover:text-[white]  mt-10"
+                                      className="text-inherit  hover:text-[white]  mt-10"
                                     >
-                                      Click To See All Posters
+                                      All Posters
                                     </Button>
                                   )
                                 : ""}
@@ -730,41 +754,43 @@ const MovieDetails = () => {
             </svg>
           </div>
         ) : (
-          <div className=" container mx-auto">
-            <h1 className="text-2xl font-bold text-[#0DCAF0] my-10">
+          <div className=" container mx-auto flex flex-col">
+            <h1 className="text-2xl font-bold text-[#0DCAF0] my-10 text-center md:text-start">
               RECOMMENDATIONS
             </h1>
             {recommendationMovie.length >= 1 ? (
-              <div className="w-[75%] flex overflow-auto gap-6 ">
-                {recommendationMovie.map((recomovie, i) => (
-                  <div className="" key={i}>
-                    <Card
-                      className="mt-6 w-96 bg-gray-900  font-bold "
-                      onClick={() => dispatch(aboutRecommend())}
-                    >
-                      <Link
-                        to={`/movies/${recomovie.id}/title/${recomovie.original_title}`}
+              <div className="w-full flex justify-center md:justify-start">
+                <div className="w-[75%] flex overflow-auto gap-6  ">
+                  {recommendationMovie.map((recomovie, i) => (
+                    <div className="" key={i}>
+                      <Card
+                        className="mt-6 w-40 md:w-96 bg-gray-900  font-bold "
+                        onClick={() => dispatch(aboutRecommend())}
                       >
-                        <CardHeader color="white" className="relative h-96">
-                          <img
-                            src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${recomovie.poster_path}`}
-                            className="w-[150%] h-[100%] "
-                            alt="card-image"
-                          />
-                        </CardHeader>
-                        <CardBody>
-                          <Typography
-                            variant="h5"
-                            color="white"
-                            className="mb-2"
-                          >
-                            {recomovie.title}
-                          </Typography>
-                        </CardBody>
-                      </Link>
-                    </Card>
-                  </div>
-                ))}
+                        <Link
+                          to={`/movies/${recomovie.id}/title/${recomovie.original_title}`}
+                        >
+                          <CardHeader color="white" className="relative h-96">
+                            <img
+                              src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${recomovie.poster_path}`}
+                              className="w-[150%] h-[100%] "
+                              alt="card-image"
+                            />
+                          </CardHeader>
+                          <CardBody>
+                            <Typography
+                              variant="h5"
+                              color="white"
+                              className="mb-2"
+                            >
+                              {recomovie.title}
+                            </Typography>
+                          </CardBody>
+                        </Link>
+                      </Card>
+                    </div>
+                  ))}
+                </div>
               </div>
             ) : (
               <div className="text-white text-2xl my-5  w-[75%] h-20 bg-gray-900 rounded-2xl flex justify-center items-center">

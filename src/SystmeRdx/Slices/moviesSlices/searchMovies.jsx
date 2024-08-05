@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+// import state from "sweetalert/typings/modules/state";
 
 const data = {
   moviesSearch: [],
@@ -8,6 +9,9 @@ const data = {
   moviesSearchError: null,
   checkSearchMovie: false,
   searchLength: false,
+  // search series
+  seriesSearch: [],
+  changeOneToAnother: "",
 };
 
 export const getSearchMovies = createAsyncThunk(
@@ -38,6 +42,34 @@ export const getSearchMovies = createAsyncThunk(
     }
   }
 );
+////////////////////////////////////// search series
+export const getSearchSeries = createAsyncThunk(
+  "getSeriesssearch",
+  async (nameSearch, asyncThunk) => {
+    const { rejectWithValue } = asyncThunk;
+
+    try {
+      const allSearchSeries = await axios({
+        method: "GET",
+        url: "https://api.themoviedb.org/3/search/tv",
+        params: {
+          query: `${nameSearch}`,
+          include_adult: "false",
+          language: "en-US",
+          page: "1",
+        },
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhYTY4NjZkMTkzMGZkYjc5OTc4MWMzNjAzZmM0ZTJkYyIsIm5iZiI6MTcyMTgxMzIxMS4zNTkzMTgsInN1YiI6IjY2MmUwYTNmMjRmMmNlMDEyNjJhYWY1NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._2s36yuXvNataghu_cZde0VvN-gEg9TppfMReuhNDpw",
+        },
+      });
+      return allSearchSeries.data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  }
+);
 const homeMoviesSearch = createSlice({
   name: "homeMoviesSLiceSearch",
   initialState: data,
@@ -50,6 +82,12 @@ const homeMoviesSearch = createSlice({
     del: (state) => {
       state.searchLength = true;
     },
+    aboutMovie: (state) => {
+      state.changeOneToAnother = "movie";
+    },
+    aboutSeries: (state) => {
+      state.changeOneToAnother = "serie";
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getSearchMovies.pending, (state, action) => {});
@@ -58,8 +96,16 @@ const homeMoviesSearch = createSlice({
       state.moviesSearch = action.payload.results;
     });
     builder.addCase(getSearchMovies.rejected, (state, action) => {});
+    //////////// search series
+    builder.addCase(getSearchSeries.pending, (state, action) => {});
+    builder.addCase(getSearchSeries.fulfilled, (state, action) => {
+      state.searchLength = false;
+      state.seriesSearch = action.payload.results;
+    });
+    builder.addCase(getSearchSeries.rejected, (state, action) => {});
   },
 });
 
 export const aboutSearchMovie = homeMoviesSearch.reducer;
-export const { aboutSearch, amer, del } = homeMoviesSearch.actions;
+export const { aboutSearch, amer, del, aboutMovie, aboutSeries } =
+  homeMoviesSearch.actions;

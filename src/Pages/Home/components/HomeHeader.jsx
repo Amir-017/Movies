@@ -41,7 +41,7 @@ const HomeHeader = () => {
         </div>
         <div className="w-[50%]  ms-[10em]">
           <h1 className="font-bold text-3xl text-center mb-3">SORT ORDER</h1>
-          <div className="flex flex-col gap-y-3 md:flex md:flex-row justify-evenly items-center">
+          <div className="flex flex-col md:flex-row md:gap-x-1 gap-y-3  justify-evenly items-center">
             <Button
               variant="outlined"
               className="text-white hover:bg-white hover:text-black border-white"

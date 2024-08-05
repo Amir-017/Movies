@@ -36,26 +36,28 @@ const AboutActor = () => {
   };
   return (
     <div className="w-full ">
-      <div className=" grid grid-cols-4 gap-x-10 ms-10">
-        <div className=" col-span-1 ">
+      <div className=" grid grid-cols-4 gap-x-10 ms-10 ">
+        <div className=" col-span-4 md:col-span-1 flex justify-center">
           <img
-            className="rounded-lg"
+            className="rounded-lg w-[50%] md:w-full "
             src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${infoActor.profile_path}`}
             alt=""
           />
         </div>
-        <div className="col-span-3 ">
-          <h1 className="text-white font-bold text-3xl">{infoActor.name}</h1>
+        <div className="col-span-4 md:col-span-3 w-full ">
+          <h1 className="text-white font-bold text-3xl text-center md:text-start">
+            {infoActor.name}
+          </h1>
           <div className="text-white my-10">
-            <h1 className="font-bold  text-2xl mb-5 text-[#0DCAF0]">
+            <h1 className="font-bold  text-2xl mb-5 text-[#0DCAF0] text-center md:text-start">
               Piography
             </h1>
             <p>{infoActor.biography}</p>
           </div>
         </div>
       </div>
-      <div className=" grid grid-cols-5 w-full   ">
-        <div className="col-span-1 grid gap-y-5 w-[25%] ms-5">
+      <div className=" flex grid-cols-5 w-full flex-col md:flex-row   ">
+        <div className="col-span-1 grid gap-y-5 w-full justify-items-center items-center md:w-[25%] md:justify-items-start ms-5 ">
           <h1 className="text-white text-3xl mb-5 font-bold">Personal Info</h1>
           <div className="text-white ">
             <h1 className="text-2xl font-bold">Known For </h1>
@@ -109,9 +111,9 @@ const AboutActor = () => {
                         />
                       </CardHeader>
                       <CardBody>
-                        <Typography variant="h5" color="white" className="mb-2">
-                          {movie?.title}
-                        </Typography>
+                        <div variant="h5" className="mb-2 text-white text-2xl">
+                          {movie.title}
+                        </div>
                       </CardBody>
                     </Card>
                   </Link>

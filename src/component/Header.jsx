@@ -25,12 +25,15 @@ import {
   getSearchMovies,
   amer,
   del,
+  aboutMovie,
+  aboutSeries,
+  getSearchSeries,
 } from "../SystmeRdx/Slices/moviesSlices/searchMovies";
 import { aboutRecommend } from "../SystmeRdx/Slices/moviesSlices/mediaSlice";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/16/solid";
 
 const Header = () => {
-  const [myCheck, setMyCheck] = useState("");
+  // const [myCheck, setMyCheck] = useState("");
 
   function NavListMenu() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -137,9 +140,8 @@ const Header = () => {
     movieDetails: { belongs_to_collection },
   } = useSelector((state) => state.myMovies);
 
-  const { moviesSearch, searchLength } = useSelector(
-    (state) => state.aboutSearchMovie
-  );
+  const { moviesSearch, searchLength, changeOneToAnother, seriesSearch } =
+    useSelector((state) => state.aboutSearchMovie);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -148,7 +150,8 @@ const Header = () => {
 
   const amer = (e) => {
     dispatch(getSearchMovies(e));
-    setMyCheck(e);
+    dispatch(getSearchSeries(e));
+    // setMyCheck(e);
   };
 
   return (
@@ -171,7 +174,7 @@ const Header = () => {
               <NavList />
             </div>
 
-            <div className="w-[35%] rounded-2xl border-2 border-y-brown-700 ">
+            <Typography className="w-[35%] rounded-2xl border-2 border-y-brown-700 ">
               <label className="relative block ">
                 <span className="sr-only">Search</span>
                 <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -182,28 +185,34 @@ const Header = () => {
                 </span>
                 <input
                   className="placeholder:italic placeholder:text-slate-400 block bg-transparent w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                  placeholder="Search Movies ..."
+                  placeholder={
+                    changeOneToAnother == "serie"
+                      ? "Search Series ..."
+                      : "Search Movies ..."
+                  }
                   type="text"
                   name="search"
                   onKeyUp={(e) => amer(e.target.value)}
                 />
               </label>
-            </div>
+            </Typography>
             {/* w-full text-white  bg-transparent */}
             <div className="hidden gap-2 lg:flex border-dotted hover:border-red-600  ">
               <Button
                 color="white"
                 size="sm"
                 className="bg-transparent text-white border-green-600 border-2 p-3 hover:shadow-green-400"
+                onClick={() => dispatch(aboutMovie())}
               >
                 Search Movies
-              </Button>{" "}
+              </Button>
               <Button
                 color="white"
                 size="sm"
                 className="bg-transparent text-white border-red-600 border-2 p-3 hover:shadow-red-900"
+                onClick={() => dispatch(aboutSeries())}
               >
-                Login
+                Search Series
               </Button>
             </div>
             <IconButton
@@ -229,44 +238,86 @@ const Header = () => {
             </div>
           </Collapse>
         </Navbar>
-        <div className="relative">
-          {!searchLength ? (
-            <div className=" overflow-auto w-96 h-96 absolute right-[18rem]  ">
-              <Badge
-                onClick={() => dispatch(del())}
-                content="Del"
-                className="absolute right-[9em] top-[4em] text-xl font-bold"
-              >
-                <div className=" mt-5 rounded-2xl  grid gap-y-6 bg-gray-900  ">
-                  {moviesSearch &&
-                    moviesSearch.map((movie, i) => (
-                      <Link
-                        to={`/movies/${movie?.id}/title/${movie?.original_title}`}
-                        className="relative rounded-2xl  text-2xl hover:bg-[#0DCAF0]  hover:h-[3rem]  hover:text-3xl "
-                        key={i}
-                      >
-                        <Button
-                          onClick={() => dispatch(aboutSearch())}
-                          className="bg-transparent hover:text-black w-full text-start"
-                        >
-                          {movie?.title}
-                        </Button>
-                        <Avatar
-                          src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movie?.poster_path}`}
-                          alt="avatar"
-                          className="absolute right-3"
-                        />
+        {changeOneToAnother == "serie" ? (
+          <div className="relative">
+            {!searchLength ? (
+              <div className=" overflow-auto w-96 h-96 absolute right-[18rem]  ">
+                <Badge
+                  onClick={() => dispatch(del())}
+                  content="Del"
+                  className="absolute right-[9em] top-[4em] text-xl font-bold"
+                >
+                  <div className=" mt-5 rounded-2xl   grid gap-y-6 bg-gray-900  ">
+                    {seriesSearch &&
+                      seriesSearch.map((serie, i) => (
+                        <div className="group hover:bg-[#0DCAF0] " key={i}>
+                          <Link
+                            to={`/series/${serie?.id}/title/${serie?.name}`}
+                            className=" relative rounded-2xl  text-2xl   group-hover:text-3xl "
+                          >
+                            <Button
+                              onClick={() => dispatch(aboutSearch())}
+                              className="bg-transparent group-hover:text-black w-full text-start"
+                            >
+                              {serie?.name}
+                            </Button>
+                            <Avatar
+                              src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${serie?.poster_path}`}
+                              alt="avatar"
+                              className="absolute right-3"
+                            />
 
-                        <hr className="mt-4" />
-                      </Link>
-                    ))}
-                </div>
-              </Badge>
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
+                            <hr className="mt-4" />
+                          </Link>
+                        </div>
+                      ))}
+                  </div>
+                </Badge>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+        ) : (
+          <div className="relative">
+            {!searchLength ? (
+              <div className=" overflow-auto w-96 h-96 absolute right-[18rem]  ">
+                <Badge
+                  onClick={() => dispatch(del())}
+                  content="Del"
+                  className="dell absolute right-[9em] top-[4em] text-xl font-bold"
+                >
+                  <div className=" mt-5 rounded-2xl  grid gap-y-6 bg-gray-900  ">
+                    {moviesSearch &&
+                      moviesSearch.map((movie, i) => (
+                        <Link
+                          to={`/movies/${movie?.id}/title/${movie?.original_title}`}
+                          className="relative rounded-2xl  text-2xl hover:bg-[#0DCAF0]  hover:h-[3rem]  hover:text-3xl "
+                          key={i}
+                        >
+                          <Button
+                            onClick={() => dispatch(aboutSearch())}
+                            className="bg-transparent hover:text-black w-full text-start"
+                          >
+                            {movie?.title}
+                          </Button>
+                          <Avatar
+                            src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movie?.poster_path}`}
+                            alt="avatar"
+                            className="absolute right-3"
+                          />
+
+                          <hr className="mt-4" />
+                        </Link>
+                      ))}
+                  </div>
+                </Badge>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

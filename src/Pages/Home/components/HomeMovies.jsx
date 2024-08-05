@@ -13,33 +13,74 @@ import {
 import ReactStars from "react-stars";
 import { Link } from "react-router-dom";
 export const HomeMovies = ({ data, items }) => {
-  const settings = {
+  var settings = {
     dots: true,
     infinite: true,
+    speed: 2000,
     slidesToShow: 4,
     slidesToScroll: 1,
+    initialSlide: 0,
+    autoplaySpeed: 50,
     autoplay: true,
-    speed: 2000,
-    autoplaySpeed: 500,
+
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+          autoplaySpeed: 50,
+          autoplay: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+          autoplaySpeed: 50,
+          autoplay: true,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+          autoplaySpeed: 50,
+          autoplay: true,
+        },
+      },
+    ],
   };
 
   return (
-    <div className=" container mx-auto ">
-      <h1 className=" text-4xl ms-9 text-blue-500 mb-5"> Movies</h1>
+    <div className="w-full container mx-auto ">
+      <h1 className=" text-4xl ms-9 text-blue-500 mb-5 text-center  md:text-start">
+        {" "}
+        Movies
+      </h1>
 
-      <Slider {...settings} className="w-full">
+      <Slider {...settings} className="w-full  ">
         {data.map((item, i) => (
-          <div className="px-10 sm:w-full" key={i}>
+          <div className=" px-10  handlediv" key={i}>
             <img
               src={`https://media.themoviedb.org/t/p/w220_and_h330_face${item.backdrop_path}`}
               alt=""
-              className="rounded-2xl"
-              // width={1000}
+              className="rounded-2xl "
             />
           </div>
         ))}
       </Slider>
-      <h1 className=" text-4xl  text-blue-500 mb-5 mt-5">Top Movies</h1>
+      <h1 className=" text-4xl  text-blue-500 mb-5 mt-10 text-center  md:text-start">
+        Top Movies
+      </h1>
 
       <div className="container mx-auto flex justify-center items-center gap-8 flex-wrap px-10   mt-10 mb-10  ">
         {items.map((item, i) => (

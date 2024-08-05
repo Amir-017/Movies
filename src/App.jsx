@@ -20,6 +20,12 @@ import axios from "axios";
 import BackDropsMovie from "./Pages/movies/BackDropsMovie";
 import PostersMovie from "./Pages/movies/PostersMovie";
 import AboutActor from "./Pages/movies/AboutActor";
+import MoviesDetailsSeries from "./Pages/series/MoviesDetailsSeries";
+import SeriesWorker from "./Pages/series/SeriesWorker";
+import ReviewSeries from "./Pages/series/ReviewSeries";
+import VideoSeries from "./Pages/series/VideoSeries";
+import BackDropsSeries from "./Pages/series/BackDropsSeries";
+import PostersSeries from "./Pages/series/PostersSeries";
 
 const App = () => {
   return (
@@ -54,7 +60,36 @@ const App = () => {
         />
         <Route path="/movieDetails/:idMovie" element={<ReviewMovie />} />
         <Route path="/" element={<Home />} />
+        {/* ////////////////// */}
         <Route path="/series" element={<Series />} />
+        <Route
+          path="/series/:idSeries/title/:nameSeries"
+          element={<MoviesDetailsSeries />}
+        />
+        <Route
+          path="/movieDetailsseries/:idseries/title/:nameSeries/cast"
+          element={<SeriesWorker />}
+        />
+        <Route
+          path="/movieDetailsseries/:idseries"
+          element={<ReviewSeries />}
+        />
+        <Route
+          path="/movieDetailsseries/:idseries/title/:nameseries/vid"
+          element={<VideoSeries />}
+        />
+        <Route
+          path="/movieDetailsseries/:idseries/title/:nameseries/backdrops"
+          element={<BackDropsSeries />}
+        />
+        <Route
+          path="/movieDetailsseries/:idseries/title/:nameseries/posters"
+          element={<PostersSeries />}
+        />
+        {/* <Route
+          path="/person/:actorid/hisname/:actorname"
+          element={<AboutActorSeries />}
+        /> */}
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

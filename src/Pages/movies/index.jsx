@@ -68,7 +68,7 @@ const Movies = () => {
         </div>
       ) : (
         <div className="">
-          <h1 className=" text-[#0DCAF0] font-bold text-4xl container mx-auto my-5">
+          <h1 className=" text-[#0DCAF0] font-bold text-4xl container mx-auto my-5 text-center md:text-center lg:text-start">
             Movies
           </h1>
           <h1 className=" text-white w-full text-center   font-bold text-4xl container mx-auto my-10">
@@ -77,7 +77,7 @@ const Movies = () => {
             From <span className="text-[#0DCAF0] underline mx-2">500</span>
           </h1>
 
-          <div className="grid grid-cols-4 justify-items-center items-center  gap-5 container mx-auto ">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center items-center  gap-5 container mx-auto ">
             {movies.map((movie, i) => (
               <Card
                 className="rounded-2xl w-[19rem] flex justify-center items-center flex-wrap bg-gray-900 "
@@ -124,7 +124,7 @@ const Movies = () => {
                     >
                       <Button
                         variant="outlined"
-                        className="border-double border-[#0DCAF0]  text-[#0DCAF0] hover:bg-[#0DCAF0] hover:text-black"
+                        className=" border-[#0DCAF0]  text-[#0DCAF0] hover:bg-[#0DCAF0] hover:text-black"
                       >
                         Details
                       </Button>
