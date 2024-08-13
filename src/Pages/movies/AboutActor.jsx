@@ -39,20 +39,26 @@ const AboutActor = () => {
       <div className=" grid grid-cols-4 gap-x-10 ms-10 ">
         <div className=" col-span-4 md:col-span-1 flex justify-center">
           <img
-            className="rounded-lg w-[50%] md:w-full "
+            className="rounded-2xl w-[50%] md:w-full "
             src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${infoActor.profile_path}`}
             alt=""
           />
         </div>
         <div className="col-span-4 md:col-span-3 w-full ">
-          <h1 className="text-white font-bold text-3xl text-center md:text-start">
+          <h1 className="text-white mt-5 font-bold text-3xl text-center md:text-start md:mt-0">
             {infoActor.name}
           </h1>
           <div className="text-white my-10">
             <h1 className="font-bold  text-2xl mb-5 text-[#0DCAF0] text-center md:text-start">
               Piography
             </h1>
-            <p>{infoActor.biography}</p>
+            {infoActor.biography ? (
+              <p>{infoActor.biography}</p>
+            ) : (
+              <p className="text-center md:text-start">
+                There's no Bio Belongs To This Actor
+              </p>
+            )}
           </div>
         </div>
       </div>

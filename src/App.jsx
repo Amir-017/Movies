@@ -20,17 +20,21 @@ import axios from "axios";
 import BackDropsMovie from "./Pages/movies/BackDropsMovie";
 import PostersMovie from "./Pages/movies/PostersMovie";
 import AboutActor from "./Pages/movies/AboutActor";
-import MoviesDetailsSeries from "./Pages/series/MoviesDetailsSeries";
 import SeriesWorker from "./Pages/series/SeriesWorker";
 import ReviewSeries from "./Pages/series/ReviewSeries";
 import VideoSeries from "./Pages/series/VideoSeries";
 import BackDropsSeries from "./Pages/series/BackDropsSeries";
 import PostersSeries from "./Pages/series/PostersSeries";
+import Head from "./component/Head";
+import DetailsSeries from "./Pages/series/DetailsSeries";
+import AllSeasons from "./Pages/series/AllSeasons";
+import AllEpisodes from "./Pages/series/AllEpisodes";
+import CastAndCrewEpisode from "./Pages/series/CastAndCrewEpisode";
 
 const App = () => {
   return (
     <div>
-      <Header />
+      <Head />
 
       <Routes>
         <Route path="/movies" element={<Movies />} />
@@ -60,36 +64,42 @@ const App = () => {
         />
         <Route path="/movieDetails/:idMovie" element={<ReviewMovie />} />
         <Route path="/" element={<Home />} />
-        {/* ////////////////// */}
+        {/* ///////////////////////////////////// */}
+        {/* //////////////////////////////////// */}
         <Route path="/series" element={<Series />} />
         <Route
           path="/series/:idSeries/title/:nameSeries"
-          element={<MoviesDetailsSeries />}
+          element={<DetailsSeries />}
         />
         <Route
-          path="/movieDetailsseries/:idseries/title/:nameSeries/cast"
+          path="/Detailsseries/:idseries/title/:nameSeries/cast"
           element={<SeriesWorker />}
         />
+        <Route path="/Detailsseries/:idseries" element={<ReviewSeries />} />
         <Route
-          path="/movieDetailsseries/:idseries"
-          element={<ReviewSeries />}
-        />
-        <Route
-          path="/movieDetailsseries/:idseries/title/:nameseries/vid"
+          path="/Detailsseries/:idseries/title/:nameseries/vid"
           element={<VideoSeries />}
         />
         <Route
-          path="/movieDetailsseries/:idseries/title/:nameseries/backdrops"
+          path="/Detailsseries/:idseries/title/:nameseries/backdrops"
           element={<BackDropsSeries />}
         />
         <Route
-          path="/movieDetailsseries/:idseries/title/:nameseries/posters"
+          path="/Detailsseries/:idseries/title/:nameseries/posters"
           element={<PostersSeries />}
         />
-        {/* <Route
-          path="/person/:actorid/hisname/:actorname"
-          element={<AboutActorSeries />}
-        /> */}
+        <Route
+          path="/detailssereis/:idserie/name/:nameserie"
+          element={<AllSeasons />}
+        />{" "}
+        <Route
+          path="/detailssereis/:idseries/season/:season_number"
+          element={<AllEpisodes />}
+        />{" "}
+        <Route
+          path="/detailssereis/:idseries/season/:season_number/episode/:episodenum"
+          element={<CastAndCrewEpisode />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

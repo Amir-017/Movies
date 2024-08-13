@@ -19,6 +19,7 @@
 
 .dell {
   cursor: pointer !important;
+  /* background-color: red !important; */
 }
 
 .handlediv {
@@ -32,4 +33,8 @@
 
 .slick-prev {
   left: 0px !important;
+}
+
+.cardSe {
+  cursor: pointer !important;
 }

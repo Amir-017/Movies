@@ -1,17 +1,22 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { getMovieDetails } from "../../SystmeRdx/Slices/moviesSlices/moviesSlice";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import img from "../../Photos/th.jpeg";
 
 import {
-  getCastCrew,
-  getReviewMovie,
-} from "../../SystmeRdx/Slices/moviesSlices/castAndCrew";
+  aboutRecommend,
+  getBackDropsSeries,
+  getCastCrewSeries,
+  getRecommendSeris,
+  getReviewSeries,
+  getSeriesDetails,
+  getVideoSeries,
+} from "../../SystmeRdx/Slices/seriesSlices/homeSeriesSlice";
 import { BiAddToQueue } from "react-icons/bi";
 import { IoStarOutline } from "react-icons/io5";
 import { FaVideo } from "react-icons/fa6";
-import { Breadcrumbs, Button } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
+import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import {
   Card,
   CardHeader,
@@ -21,7 +26,6 @@ import {
   Avatar,
   Tooltip,
 } from "@material-tailwind/react";
-import ShowMoreText from "react-show-more-text";
 import {
   Tabs,
   TabsHeader,
@@ -29,116 +33,91 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
-import {
-  getBackDrops,
-  // getCollectionMovie,
-  getVideoMovie,
-  ////
-  // getMovieDetailsCollection,
-  getRecommendMovie,
-  aboutRecommend,
-  ////
-} from "./../../SystmeRdx/Slices/moviesSlices/mediaSlice";
-import axios from "axios";
-import swal from "sweetalert";
 import { CgSmileSad } from "react-icons/cg";
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
-const MovieDetails = () => {
-  const { idMovie, nameMovie, collectionid } = useParams();
+import ShowMoreText from "react-show-more-text";
+import { FaStar } from "react-icons/fa";
+import fakeImg from "../../Photos/avatar-black-and-white-clipart-7.jpg";
+import { Breadcrumbs } from "@material-tailwind/react";
+
+const data = [
+  {
+    label: "Videos",
+    value: "html",
+  },
+  {
+    label: "BackDrops",
+    value: "react",
+  },
+  {
+    label: "Posters",
+    value: "vue",
+  },
+];
+
+const DetailsSeries = () => {
+  const { idSeries, nameSeries } = useParams();
+
+  const {
+    seriesDetails,
+    seriesHomeLoading,
+    seriesDetails: { genres },
+    //
+    castAndCrewSeries: { cast, crew },
+    castAndCrewSeries,
+    castShownSeries,
+    castAndCrewSeriesLoading,
+    //
+    reviewsSeries: { results },
+    reviewsSeries,
+    reviewsSeriesLoading,
+    seriesReviewError,
+    //
+    videoSeries,
+    videoSeriesLoading,
+    //
+    backDropsSeries: { backdrops, posters },
+    backDropsSeries,
+    backDropsSeriesLoading,
+    //
+    recommendationSeries,
+    recommendationLoadingSeries,
+    checkRecommendSeries,
+  } = useSelector((state) => state.series);
 
   const dispatch = useDispatch();
-  ////////////////
-
-  const {
-    movieDetails,
-    movieDetails: { genres },
-    movieDetailsLoading,
-  } = useSelector((state) => state.myMovies);
-  const {
-    videoMovie,
-    videoLoading,
-    checkRecommend,
-
-    recommendationMovie,
-    recommendationLoading,
-
-    backDrops: { backdrops, posters },
-  } = useSelector((state) => state.myMediaMovie);
-  const {
-    castAndCrew: { cast, crew },
-    castShown,
-    reviews,
-    castAndCrewLoading,
-    reviewsLoading,
-  } = useSelector((state) => state.AllcastAndCrew);
-
-  const { moviesSearch, checkSearchMovie } = useSelector(
-    (state) => state.aboutSearchMovie
-  );
 
   useEffect(() => {
-    dispatch(getMovieDetails(idMovie));
-
-    dispatch(getCastCrew(idMovie));
-    dispatch(getReviewMovie(idMovie));
-    dispatch(getVideoMovie(idMovie));
-    dispatch(getBackDrops(idMovie));
-
-    dispatch(getRecommendMovie(idMovie));
-  }, [checkSearchMovie ? checkSearchMovie : checkSearchMovie]);
-
-  useEffect(() => {
-    dispatch(getMovieDetails(idMovie));
-
-    dispatch(getCastCrew(idMovie));
-    dispatch(getReviewMovie(idMovie));
-    dispatch(getVideoMovie(idMovie));
-    dispatch(getBackDrops(idMovie));
-
-    dispatch(getRecommendMovie(idMovie));
-  }, [checkRecommend ? checkRecommend : checkRecommend]);
-
-  ////////////////////
+    dispatch(getSeriesDetails(idSeries));
+    dispatch(getCastCrewSeries(idSeries));
+    dispatch(getReviewSeries(idSeries));
+    dispatch(getVideoSeries(idSeries));
+    dispatch(getBackDropsSeries(idSeries));
+    dispatch(getRecommendSeris(idSeries));
+  }, [checkRecommendSeries ? checkRecommendSeries : checkRecommendSeries]);
   const navigate = useNavigate();
+
   const backAstep = () => {
     navigate(-1);
   };
-  //tabs
-  const data = [
-    {
-      label: "Videos",
-      value: "html",
-    },
-    {
-      label: "BackDrops",
-      value: "react",
-    },
-    {
-      label: "Posters",
-      value: "vue",
-    },
-  ];
 
-  ///tabs
-
-  const aboutCastAndCrew = () => {
-    navigate(`/movieDetails/${idMovie}/title/${nameMovie}/cast`);
+  const aboutCastAndCrewSeries = () => {
+    navigate(`/Detailsseries/${idSeries}/title/${nameSeries}/cast`);
   };
-  const aboutVideo = () => {
-    navigate(`/movieDetails/${idMovie}/title/${nameMovie}/vid`);
+  const aboutVideoSeries = () => {
+    navigate(`/Detailsseries/${idSeries}/title/${nameSeries}/vid`);
   };
-  const aboutBackDropsMovie = () => {
-    navigate(`/movieDetails/${idMovie}/title/${nameMovie}/backdrops`);
+  const aboutBackDropsSeries = () => {
+    navigate(`/Detailsseries/${idSeries}/title/${nameSeries}/backdrops`);
   };
-  const aboutPostersMovie = () => {
-    navigate(`/movieDetails/${idMovie}/title/${nameMovie}/posters`);
+  const aboutPostersSeries = () => {
+    navigate(`/Detailsseries/${idSeries}/title/${nameSeries}/posters`);
   };
 
   return (
     <div className="">
       <div className="">
         <div className=" w-full ">
-          {movieDetailsLoading ? (
+          {seriesHomeLoading ? (
             <div className=" grid min-h-[140px] w-full place-items-center  overflow-x-scroll rounded-lg p-6 lg:overflow-visible h-screen justify-items-center items-center">
               <svg
                 className="w-16 h-16 animate-spin text-white"
@@ -166,157 +145,156 @@ const MovieDetails = () => {
               </svg>
             </div>
           ) : (
-            <div
-              className={`w-full    bg-no-repeat bg-center bg-cover mb-10 `}
-              style={{
-                backgroundImage: `url('https://image.tmdb.org/t/p/w600_and_h900_bestv2${movieDetails.backdrop_path}')`,
-              }}
-            >
-              <div className="w-full  ">
-                {/* <div className="w-full opacity-50"></div> */}
-                <div className="w-full pt-5 text-center font-bold grid gap-y-5">
-                  <h1 className="text-[#0DCAF0]  text-3xl ">Movie Details</h1>
-                  <h1 className="text-light-green-100 text-3xl">
-                    {movieDetails.title}
-                  </h1>
-                  <div className="w-full flex flex-col md:flex-row  justify-center  text-2xl">
-                    <h1 className="text-light-green-100 text-xl font-bold">
-                      {movieDetails.release_date} (
-                      {movieDetails.original_language})
+            <div className="">
+              <div
+                className={`w-full     bg-no-repeat bg-center bg-cover mb-10  `}
+                style={{
+                  backgroundImage: `url('https://image.tmdb.org/t/p/w600_and_h900_bestv2${seriesDetails.backdrop_path}')`,
+                }}
+              >
+                <div className="w-full  ">
+                  {/* <div className="w-full opacity-50"></div> */}
+                  <div className="w-full pt-5 text-center font-bold grid gap-y-5">
+                    <h1 className="text-[#0DCAF0]  text-3xl ">
+                      Series Details
                     </h1>
-                    {/* <div className=" font-bolder"> */}
-                    {genres &&
-                      genres.map((gener, i) => (
-                        <h1
-                          className="text-light-green-100 text-xl font-bold "
-                          key={i}
+                    <h1 className="text-light-green-100 text-3xl">
+                      {seriesDetails.name}
+                    </h1>
+                    <div className="w-full flex flex-col md:flex-row  justify-center  text-2xl">
+                      <h1 className="text-light-green-100 text-xl font-bold">
+                        {seriesDetails.release_date} (
+                        {seriesDetails.original_language})
+                      </h1>
+                      {genres &&
+                        genres.map((gener, i) => (
+                          <h1
+                            className="text-light-green-100 text-xl font-bold "
+                            key={i}
+                          >
+                            {gener.name},
+                          </h1>
+                        ))}
+                    </div>
+                  </div>
+                  <div className="w-full container mx-auto flex flex-col  lg:flex-row  mt-10 ">
+                    <div className="w-[100%] lg:w-[30%]">
+                      <div className=" mb-5  flex justify-center  h-screen rounded-[3em]  ">
+                        <img
+                          src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${seriesDetails.poster_path}`}
+                          className="w-[65%] md:w-[70%]  lg:w-[100%]  rounded-[2em]"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="w-[70%] flex flex-col ms-10 ">
+                      <div className="mb-10">
+                        <h1 className="text-3xl text-[#0DCAF0] font-bold ">
+                          OverView :{" "}
+                          <span className="font-medium text-xl text-light-green-100 w-full">
+                            {seriesDetails.overview}
+                          </span>
+                        </h1>
+                      </div>
+                      <div className=" ">
+                        <h1 className="text-3xl text-[#0DCAF0] font-bold">
+                          Casting :
+                        </h1>
+                      </div>
+                      <div className="flex py-10  justify-between items-center w-full">
+                        <div className=" text-xl text-light-green-100 text-center">
+                          {cast &&
+                            cast.map((member, i) => (
+                              <div className="flex flex-col " key={i}>
+                                <h1 className="text-2xl text-white">
+                                  {i == 1 && member.name}
+                                </h1>
+                              </div>
+                            ))}
+                          <h1 className="text-yellow-800">Acting</h1>
+                        </div>
+                        <h1 className="text-white">||</h1>
+                        <div className=" text-xl text-light-green-100 text-center">
+                          {cast &&
+                            cast.map((member, i) => (
+                              <div className="flex flex-col " key={i}>
+                                <h1 className="text-2xl text-white">
+                                  {i == 2 && member.name}
+                                </h1>
+                              </div>
+                            ))}
+                          <h1 className="text-yellow-800">Acting</h1>
+                        </div>
+                      </div>
+                      {/*  */}
+                      <div className="flex py-10  justify-between items-center w-full">
+                        <div className=" text-xl text-light-green-100 text-center">
+                          {crew &&
+                            crew.map((member, i) => (
+                              <div className="flex flex-col " key={i}>
+                                <h1 className="text-2xl text-white">
+                                  {i == 0 && member.name}
+                                </h1>
+                              </div>
+                            ))}
+                          <h1 className="text-yellow-800">Production</h1>
+                        </div>
+                        <h1 className="text-white">||</h1>
+                        <div className=" text-xl text-light-green-100 text-center">
+                          {crew &&
+                            crew.map((member, i) => (
+                              <div className="flex flex-col " key={i}>
+                                <h1 className="text-2xl text-white">
+                                  {i == 2 && member.name}
+                                </h1>
+                              </div>
+                            ))}
+                          <h1 className="text-yellow-800">Direction</h1>
+                        </div>
+                        <h1 className="text-white">||</h1>
+
+                        <div className=" text-xl text-light-green-100 text-center">
+                          {crew &&
+                            crew.map((member, i) => (
+                              <div className="flex flex-col " key={i}>
+                                <h1 className="text-2xl text-white">
+                                  {i == 4 && member.name}
+                                </h1>
+                              </div>
+                            ))}
+                          <h1 className="text-yellow-800">Production</h1>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center text-white text-2xl">
+                        <div className="flex flex-col">
+                          <h1 className="flex justify-center items-center text-3xl">
+                            <BiAddToQueue />
+                          </h1>
+                          <h1>Add To Watch List</h1>
+                        </div>
+                        <div className="flex flex-col">
+                          <h1 className="flex justify-center items-center text-yellow-600 text-3xl">
+                            <IoStarOutline />
+                          </h1>
+                          <h1>Rate Series</h1>
+                        </div>
+                        <div className="flex flex-col">
+                          <h1 className="flex justify-center items-center text-[red] text-3xl">
+                            <FaVideo />
+                          </h1>
+                          <h1>Play Trailer</h1>
+                        </div>
+                      </div>
+                      {/* button */}
+                      <div className="flex justify-center my-10">
+                        <Button
+                          onClick={backAstep}
+                          variant="outlined"
+                          className=" border-[#0DCAF0]  text-[#0DCAF0] hover:bg-[#0DCAF0] hover:text-black"
                         >
-                          {gener.name},
-                        </h1>
-                      ))}
-                    <h1 className="text-light-green-100 text-xl font-bold px-5">
-                      {(movieDetails.runtime / 60).toFixed(2)} sec
-                    </h1>
-                    {/* </div> */}
-                  </div>
-                </div>
-                <div className="w-full container mx-auto flex flex-col  lg:flex-row  mt-10 ">
-                  <div className="w-full lg:w-[30%]">
-                    <div className=" mb-5 w-full h-screen flex justify-center rounded-2xl   ">
-                      <img
-                        src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movieDetails.poster_path}`}
-                        className="w-[65%] md:w-[70%]  lg:w-full   rounded-2xl"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col ms-10 w-[70%] ">
-                    <div className="mb-10">
-                      <h1 className="text-3xl text-[#0DCAF0] font-bold ">
-                        OverView :{" "}
-                        <span className="font-medium text-xl text-light-green-100 w-full">
-                          {movieDetails.overview}
-                        </span>
-                      </h1>
-                    </div>
-                    <div className=" ">
-                      <h1 className="text-3xl text-[#0DCAF0] font-bold">
-                        Casting :
-                      </h1>
-                    </div>
-                    <div className="flex py-10  justify-between items-center w-full">
-                      <div className=" text-xl text-light-green-100 text-center">
-                        {cast &&
-                          cast.map((member, i) => (
-                            <div className="flex flex-col " key={i}>
-                              <h1 className="text-2xl text-white">
-                                {i == 1 && member.name}
-                              </h1>
-                            </div>
-                          ))}
-                        <h1 className="text-yellow-800">Acting</h1>
+                          Back a step
+                        </Button>
                       </div>
-                      <h1 className="text-white">||</h1>
-                      <div className=" text-xl text-light-green-100 text-center">
-                        {cast &&
-                          cast.map((member, i) => (
-                            <div className="flex flex-col " key={i}>
-                              <h1 className="text-2xl text-white">
-                                {i == 2 && member.name}
-                              </h1>
-                            </div>
-                          ))}
-                        <h1 className="text-yellow-800">Acting</h1>
-                      </div>
-                    </div>
-                    {/*  */}
-                    <div className="flex py-10  justify-between items-center w-full">
-                      <div className=" text-xl text-light-green-100 text-center">
-                        {crew &&
-                          crew.map((member, i) => (
-                            <div className="flex flex-col " key={i}>
-                              <h1 className="text-2xl text-white">
-                                {i == 0 && member.name}
-                              </h1>
-                            </div>
-                          ))}
-                        <h1 className="text-yellow-800">Production</h1>
-                      </div>
-                      <h1 className="text-white">||</h1>
-                      <div className=" text-xl text-light-green-100 text-center">
-                        {crew &&
-                          crew.map((member, i) => (
-                            <div className="flex flex-col " key={i}>
-                              <h1 className="text-2xl text-white">
-                                {i == 2 && member.name}
-                              </h1>
-                            </div>
-                          ))}
-                        <h1 className="text-yellow-800">Direction</h1>
-                      </div>
-                      <h1 className="text-white">||</h1>
-
-                      <div className=" text-xl text-light-green-100 text-center">
-                        {crew &&
-                          crew.map((member, i) => (
-                            <div className="flex flex-col " key={i}>
-                              <h1 className="text-2xl text-white">
-                                {i == 4 && member.name}
-                              </h1>
-                            </div>
-                          ))}
-                        <h1 className="text-yellow-800">Production</h1>
-                      </div>
-                    </div>
-                    <div className="flex justify-between items-center text-white text-2xl">
-                      <div className="flex flex-col">
-                        <h1 className="flex justify-center items-center text-3xl">
-                          <BiAddToQueue />
-                        </h1>
-                        <h1>Add To Watch List</h1>
-                      </div>
-                      <div className="flex flex-col">
-                        <h1 className="flex justify-center items-center text-yellow-600 text-3xl">
-                          <IoStarOutline />
-                        </h1>
-                        <h1>Rate Movie</h1>
-                      </div>
-                      <div className="flex flex-col">
-                        <h1 className="flex justify-center items-center text-[red] text-3xl">
-                          <FaVideo />
-                        </h1>
-                        <h1>Play Trailer</h1>
-                      </div>
-                    </div>
-                    {/* button */}
-                    <div className="flex justify-center my-10">
-                      <Button
-                        onClick={backAstep}
-                        variant="outlined"
-                        className=" border-[#0DCAF0]  text-[#0DCAF0] hover:bg-[#0DCAF0] hover:text-black"
-                      >
-                        Back a step
-                      </Button>
                     </div>
                   </div>
                 </div>
@@ -326,12 +304,11 @@ const MovieDetails = () => {
 
           {/* </div> */}
         </div>
-
         {/* page two */}
         <h1 className="text-3xl text-[#0DCAF0] container mx-auto py-5 font-bold ">
           Top Billed Cast
         </h1>
-        {castAndCrewLoading ? (
+        {castAndCrewSeriesLoading ? (
           <div className=" grid min-h-[140px] w-full place-items-center  overflow-x-scroll rounded-lg p-6 lg:overflow-visible h-screen justify-items-center items-center">
             <svg
               className="w-16 h-16 animate-spin text-white"
@@ -361,8 +338,8 @@ const MovieDetails = () => {
         ) : (
           <div className="flex justify-evenly w-full   ">
             <div className="   w-[75%]  overflow-auto flex gap-5">
-              {castShown &&
-                castShown.map((actor, i) => (
+              {castShownSeries &&
+                castShownSeries.map((actor, i) => (
                   <div className="" key={i}>
                     <Link to={`/person/${actor.id}/hisname/${actor.name}`}>
                       <Card className="w-[12rem] h-[26rem] bg-[#212529] rounded shadow-gray-900">
@@ -370,10 +347,11 @@ const MovieDetails = () => {
                           floated={false}
                           shadow={false}
                           color="transparent"
-                          className="m-0 rounded "
+                          className="m-0 rounded-[1em] "
                         >
                           {actor.profile_path ? (
                             <img
+                              className=""
                               src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${actor.profile_path}`}
                               alt="ui/ux review check"
                             />
@@ -381,10 +359,10 @@ const MovieDetails = () => {
                             <img src={img} className="w-full h-[18rem]" />
                           )}
                         </CardHeader>
-                        <CardBody className=" text-1xl">
+                        <CardBody className=" text-1xl ">
                           <div
                             variant="h4"
-                            className="flex flex-col  text-white gap-y-2"
+                            className="flex flex-col  text-white gap-y-2 "
                           >
                             <h1> {actor.name}</h1>
                             <h1> {actor.character}</h1>
@@ -411,41 +389,136 @@ const MovieDetails = () => {
               <div className="flex justify-center flex-col gap-y-7">
                 <div className="text-white text-2xl mt-10">
                   <h1>Status</h1>
-                  <h1 className="text-[#0DCAF0] mt-2">{movieDetails.status}</h1>
+                  <h1 className="text-[#0DCAF0] mt-2">
+                    {seriesDetails.status}
+                  </h1>
                 </div>
                 <div className="text-white text-2xl">
                   <h1>Budget</h1>
-                  <h1 className="text-[#0DCAF0] mt-2">{movieDetails.budget}</h1>
+                  <h1 className="text-[#0DCAF0] mt-2">
+                    {seriesDetails.budget}
+                  </h1>
                 </div>
                 <div className="text-white text-2xl">
                   <h1>original_lang</h1>
                   <h1 className="text-[#0DCAF0] mt-2">
-                    {movieDetails.original_language?.toUpperCase()}
+                    {seriesDetails.original_language?.toUpperCase()}
                   </h1>
                 </div>
 
                 <div className="text-white text-2xl">
                   <h1>revenue</h1>
                   <h1 className="text-[#0DCAF0] mt-2">
-                    {movieDetails.revenue}
+                    {seriesDetails.revenue}
                   </h1>
                 </div>
               </div>
             </div>
           </div>
         )}
-
         <div className="container mx-auto py-5 ps-5  text-[#0DCAF0]  ">
           <Button
-            onClick={aboutCastAndCrew}
-            // to={`/movieDetails/${idMovie}/title/${nameMovie}`}
+            onClick={aboutCastAndCrewSeries}
             className="text-gray-500  hover:text-white "
           >
             Full Cast And Crew
           </Button>
         </div>
+        {/* season */}
+        <div className="container mx-auto ">
+          {" "}
+          <h1 className="text-3xl text-[#0DCAF0] container mx-auto py-5 font-bold text-center md:text-start ">
+            Last Season
+          </h1>
+          {seriesDetails &&
+            seriesDetails.seasons?.slice(-1).map((last, key) => (
+              <div
+                className="flex flex-col justify-center items-center md:justify-start md:items-start"
+                key={key}
+              >
+                {" "}
+                <Card className=" md:mx-0 w-[75%] md:flex-row bg-gray-900 flex flex-col   ">
+                  <CardHeader
+                    // shadow={false}
+                    // floated={false}
+
+                    className="rounded-[3em] m-0 md:w-[100%]    bg-gray-900 w-full flex justify-center items-center "
+                  >
+                    {last.poster_path ? (
+                      <img
+                        src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${last.poster_path}`}
+                        alt="logo"
+                        className="rounded-[3em] ps-5 pt-5 pb-5 w-[70%] md:w-[90%] md:me-5  lg:w-[60%] "
+                      />
+                    ) : (
+                      <img
+                        src={fakeImg}
+                        alt="logo"
+                        className=" ps-5 pt-5 pb-5 w-[70%] md:w-[80%] md:me-5  lg:w-[60%]   rounded-[3em]"
+                      />
+                    )}
+                  </CardHeader>
+                  <CardBody className="w-full  ">
+                    <div className=" font-bold text-white flex flex-col    ">
+                      <div className="flex flex-col md:gap-y-5   2xl:flex-row items-center justify-evenly  text-2xl text-[#0DCAF0] ">
+                        <h1> Season {last.season_number}</h1>
+                        <div className="bg-white text-black flex rounded py-2 px-2 my-5 md:my-0 ">
+                          <h1>{last.vote_average}</h1>
+                          <FaStar className="me-0 md:me-2" />{" "}
+                        </div>
+                        <h1 className="text-[#0DCAF0] ">
+                          {last.air_date?.slice(0, 4)} | {last.episode_count}{" "}
+                          Episodes
+                        </h1>
+                      </div>
+
+                      {last.overview ? (
+                        <h1 className=" text-gray-300 mt-10 ">
+                          {" "}
+                          <ShowMoreText
+                            width={550}
+                            lines={6}
+                            more="Show more"
+                            less="Show less"
+                            className="content-css"
+                            anchorClass="show-more-less-clickable"
+                            // onClick={this.executeOnClick}
+                            expanded={false}
+                            // width={280}
+                            truncatedEndingComponent={"... "}
+                          >
+                            {last.overview}
+                          </ShowMoreText>
+                        </h1>
+                      ) : (
+                        <h1 className="font-bold text-[white] mt-10 text-[21px] text-center lg:text-start">
+                          This Season Doesn't Have Overview Yet
+                        </h1>
+                      )}
+                    </div>
+                    <div className="  ">
+                      <Link
+                        className="text-[#0DCAF0]  hover:underline font-bold flex justify-center items-center mt-10  "
+                        to={`/detailssereis/${idSeries}/season/${last.season_number}`}
+                      >
+                        All Episodes
+                      </Link>
+                    </div>
+                  </CardBody>
+                </Card>
+                <Link
+                  className="text-[#0DCAF0]  hover:underline font-bold     "
+                  to={`/detailssereis/${idSeries}/name/${nameSeries}`}
+                >
+                  All Seasons
+                </Link>
+              </div>
+            ))}
+        </div>
+
+        {/* /season */}
         {/* reviews */}
-        {reviewsLoading ? (
+        {reviewsSeriesLoading ? (
           <div className=" grid min-h-[140px] w-full place-items-center  overflow-x-scroll rounded-lg p-6 lg:overflow-visible h-screen justify-items-center items-center">
             <svg
               className="w-16 h-16 animate-spin text-white"
@@ -478,11 +551,14 @@ const MovieDetails = () => {
               Social
             </h1>
             <h1 className="text-white font-bold  mt-10 text-2xl text-center md:text-start mb-10 md:mb-0">
-              REVIEWS <span className="text-[#0DCAF0]">{reviews.length}</span>
+              REVIEWS{" "}
+              <span className="text-[#0DCAF0]">
+                {results && results.length}
+              </span>
             </h1>
-            {reviews.length >= 1 ? (
+            {results && results.length >= 1 ? (
               <div className="">
-                {reviews.map(
+                {results.map(
                   (review, i) =>
                     i == 0 && (
                       <div
@@ -526,26 +602,25 @@ const MovieDetails = () => {
                 )}
               </div>
             ) : (
-              <div className="text-3xl  bg-[#212529]  rounded-2xl py-5 font-bold text-center my-10 flex justify-center">
+              <div className="text-3xl  bg-[#212529]  rounded-2xl py-5 font-bold text-center my-10 flex justify-center flex-col md:flex-row">
                 We don't have any reviews for{"  "}
-                <span className="text-[#0DCAF0] ms-3">
+                <span className="text-[#0DCAF0] ms-3 mt-5 md:mt-0">
                   {" "}
-                  {movieDetails.title}
+                  {seriesDetails.name}
                 </span>
               </div>
             )}
-            {reviews.length >= 1 && (
+            {results && results.length >= 1 && (
               <Link
-                to={`/movieDetails/${idMovie}`}
-                className="w-full text-xl text-gray-700   py-5 hover:text-[white] text-center md:text-start underline "
+                to={`/Detailsseries/${idSeries}`}
+                className="text-[#0DCAF0] mt-1 hover:underline  text-center md:text-start font-bold "
               >
                 All Reviews
               </Link>
             )}
           </div>
         )}
-
-        {videoLoading ? (
+        {videoSeriesLoading ? (
           <div className=" grid min-h-[140px] w-full place-items-center  overflow-x-scroll rounded-lg p-6 lg:overflow-visible h-screen justify-items-center items-center">
             <svg
               className="w-16 h-16 animate-spin text-white"
@@ -578,21 +653,18 @@ const MovieDetails = () => {
               Media
             </h1>
             <div className="">
-              <Tabs
-                value="html"
-                className="text-center md:text-start bg-transparent"
-              >
-                <TabsHeader className="w-[30%] flex flex-col items-center justify-center lg:flex-row lg:w-[40%]  bg-transparent border-2 border-gray-700 rounded-2xl ">
+              <Tabs value="html" className=" text-center md:text-start ">
+                <TabsHeader className=" w-[30%] flex flex-col items-center justify-center lg:flex-row lg:w-[40%]  bg-transparent  border-2 border-gray-700 rounded-2xl">
                   {data.map(({ label, value, name }) => (
                     <Tab
                       key={value}
                       value={value}
-                      className="flex justify-center md:justify-start bg-transparent"
+                      className=" flex justify-center md:justify-start bg-transparent  "
                     >
                       <Breadcrumbs className=" bg-transparent underline underline-offset-8 decoration-purple-800     ">
                         {value == "html" ? (
                           <h1 className="  text-purple-900  font-bold  focus-visible:ring  ">
-                            {label} {videoMovie && videoMovie.length}
+                            {label} {videoSeries && videoSeries.length}
                           </h1>
                         ) : value == "react" ? (
                           <h1 className=" font-bold text-purple-900">
@@ -604,9 +676,26 @@ const MovieDetails = () => {
                           </h1>
                         )}
                       </Breadcrumbs>
+
+                      {/* <div className="text-none ">
+                        {value == "html" ? (
+                          <h1 className="text-black focus:text-5xl ">
+                            {label} ({videoSeries && videoSeries.length})
+                          </h1>
+                        ) : value == "react" ? (
+                          <h1 className="text-black ">
+                            {label} ({backdrops && backdrops.length})
+                          </h1>
+                        ) : (
+                          <h1 className="text-black ">
+                            {label} ({posters && posters.length})
+                          </h1>
+                        )}
+                      </div> */}
                     </Tab>
                   ))}
                 </TabsHeader>
+                {/* <Button className="focus:ring-2">adfasdf</Button> */}
                 <TabsBody className=" ">
                   {data.map(
                     ({ value, desc }, i) =>
@@ -615,15 +704,15 @@ const MovieDetails = () => {
                           <TabPanel value={value}>
                             {value == "html" ? (
                               <div className="w-[75%] flex overflow-auto gap-6">
-                                {videoMovie &&
-                                  videoMovie.map(
-                                    (movie, i) =>
+                                {videoSeries &&
+                                  videoSeries.map(
+                                    (serie, i) =>
                                       i <= 5 && (
                                         <div className="" key={i}>
                                           <iframe
                                             width="320"
                                             height="320"
-                                            src={`https://www.youtube.com/embed/${movie.key}?si=bLuvl3WnAUMERPL9`}
+                                            src={`https://www.youtube.com/embed/${serie.key}?si=bLuvl3WnAUMERPL9`}
                                             title="YouTube video player"
                                             frameBorder="0"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -646,11 +735,11 @@ const MovieDetails = () => {
                                     (drop, i) =>
                                       i <= 5 && (
                                         <div
-                                          className="flex justify-center rounded-2xl"
+                                          className="flex justify-center rounded-[3em] "
                                           key={i}
                                         >
                                           <img
-                                            className="rounded-2xl"
+                                            className="rounded-[2em]"
                                             src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${drop.file_path}`}
                                             alt=""
                                             width={200}
@@ -671,13 +760,13 @@ const MovieDetails = () => {
                                     (poster, i) =>
                                       i <= 5 && (
                                         <div
-                                          className="flex justify-center rounded-2xl"
+                                          className="flex justify-center rounded-[3em]"
                                           key={i}
                                         >
                                           <img
                                             src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${poster.file_path}`}
                                             alt=""
-                                            className="rounded-2xl"
+                                            className="rounded-[2em]"
                                             width={200}
                                             height={200}
                                           />
@@ -688,10 +777,10 @@ const MovieDetails = () => {
                             )}
                             <div className="">
                               {value == "html"
-                                ? videoMovie &&
-                                  videoMovie.length > 2 && (
+                                ? videoSeries &&
+                                  videoSeries.length > 2 && (
                                     <Button
-                                      onClick={aboutVideo}
+                                      onClick={aboutVideoSeries}
                                       className="text-inherit  hover:text-[white]  "
                                     >
                                       All Videos
@@ -701,7 +790,7 @@ const MovieDetails = () => {
                                 ? backdrops &&
                                   backdrops.length > 6 && (
                                     <Button
-                                      onClick={aboutBackDropsMovie}
+                                      onClick={aboutBackDropsSeries}
                                       // to="/"
                                       className="text-inherit  hover:text-[white] "
                                     >
@@ -712,7 +801,7 @@ const MovieDetails = () => {
                                 ? posters &&
                                   posters.length > 6 && (
                                     <Button
-                                      onClick={aboutPostersMovie}
+                                      onClick={aboutPostersSeries}
                                       // to="/"
                                       className="text-inherit  hover:text-[white]  mt-10"
                                     >
@@ -730,9 +819,8 @@ const MovieDetails = () => {
             </div>
           </div>
         )}
-
-        {/* s__ recommend movie */}
-        {recommendationLoading ? (
+        {/* s__ recommend serie */}
+        {recommendationLoadingSeries ? (
           <div className=" grid min-h-[140px] w-full place-items-center  overflow-x-scroll rounded-lg p-6 lg:overflow-visible h-screen justify-items-center items-center">
             <svg
               className="w-16 h-16 animate-spin text-white"
@@ -764,33 +852,33 @@ const MovieDetails = () => {
             <h1 className="text-2xl font-bold text-[#0DCAF0] my-10 text-center md:text-start">
               RECOMMENDATIONS
             </h1>
-            {recommendationMovie.length >= 1 ? (
+            {recommendationSeries.length >= 1 ? (
               <div className="w-full flex justify-center md:justify-start">
                 <div className="w-[75%] flex overflow-auto gap-6  ">
-                  {recommendationMovie.map((recomovie, i) => (
+                  {recommendationSeries.map((recoserie, i) => (
                     <div className="" key={i}>
                       <Card
                         className="mt-6 w-60 md:w-96 bg-gray-900  font-bold "
                         onClick={() => dispatch(aboutRecommend())}
                       >
                         <Link
-                          to={`/movies/${recomovie.id}/title/${recomovie.original_title}`}
+                          to={`/series/${recoserie.id}/title/${recoserie.name}`}
                         >
                           <CardHeader color="white" className="relative h-96">
                             <img
-                              src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${recomovie.poster_path}`}
+                              src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${recoserie.poster_path}`}
                               className="w-[150%] h-[100%] "
                               alt="card-image"
                             />
                           </CardHeader>
                           <CardBody>
-                            <Typography
+                            <div
                               variant="h5"
                               color="white"
-                              className="mb-2"
+                              className="mb-2 text-white"
                             >
-                              {recomovie.title}
-                            </Typography>
+                              {recoserie.name}
+                            </div>
                           </CardBody>
                         </Link>
                       </Card>
@@ -799,10 +887,10 @@ const MovieDetails = () => {
                 </div>
               </div>
             ) : (
-              <div className="text-white text-2xl my-5  w-[75%] h-20 bg-gray-900 rounded-2xl flex justify-center items-center">
-                Sorry We Don't Have Any Recommendation For This Movie
-                <div className="ms-2 text-[#0DCAF0]">
-                  <CgSmileSad />
+              <div className="text-white text-2xl my-5  w-[75%] h-20 bg-gray-900 rounded-2xl flex justify-center items-center flex-col md:flex-row">
+                Sorry We Don't Have Any Recommendation For This serie
+                <div className="ms-2 text-[#0DCAF0] mt-5 md:mt-0 ">
+                  <CgSmileSad /> {seriesDetails.name}
                 </div>
               </div>
             )}
@@ -814,4 +902,4 @@ const MovieDetails = () => {
   );
 };
 
-export default MovieDetails;
+export default DetailsSeries;

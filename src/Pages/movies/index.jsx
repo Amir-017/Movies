@@ -11,7 +11,6 @@ import {
 import { IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
-import ReactStars2 from "react-stars";
 import {
   decress,
   getMovieDetails,
@@ -19,6 +18,8 @@ import {
   incress,
 } from "../../SystmeRdx/Slices/moviesSlices/moviesSlice";
 import { Link, useNavigate } from "react-router-dom";
+// import ReactStars from "react-stars";
+
 const Movies = () => {
   const {
     movies,
@@ -101,21 +102,28 @@ const Movies = () => {
                     color="blue-gray"
                     className="text-white font-bold"
                   >
-                    TITLE : {movie.title}
+                    TITLE :{" "}
+                    <span className="text-[#0DCAF0]">{movie.title}</span>
                   </Typography>
                   <div
                     variant="lead"
                     color="gray"
-                    className="flex justify-start items-center"
+                    className="flex justify-between items-center"
                   >
                     <h1 className="text-white font-medium">
                       RATE :
-                      <span className="text-[#0DCAF0] font-semibold">
+                      <span className="text-[#0DCAF0] font-semibold ms-2">
                         {movie.vote_average}
                       </span>
                     </h1>
-                    <h1 className="mt-3">
-                      {/* <ReactStars count={5} size={24} color2={"#ffd700"} />, */}
+                    <h1 className="">
+                      <ReactStars
+                        count={5}
+                        size={24}
+                        color2={"#ffd700"}
+                        value={movie.vote_average / 2}
+                        edit={false}
+                      />{" "}
                     </h1>
                   </div>
                   <div className="flex justify-center ">

@@ -64,7 +64,7 @@ const HomeSeries = ({ items, data }) => {
   // console.log(items);
   return (
     <div className="container mx-auto">
-      <h1 className=" text-4xl ms-9 text-blue-500 mb-5 text-center  md:text-start">
+      <h1 className=" text-4xl ps-9 text-blue-500 mb-5 text-center  md:text-start">
         {" "}
         Series
       </h1>
@@ -80,7 +80,7 @@ const HomeSeries = ({ items, data }) => {
           </div>
         ))}
       </Slider>
-      <h1 className=" text-4xl ms-9 text-blue-500 mb-5 mt-10 text-center  md:text-start">
+      <h1 className=" text-4xl ps-9 text-blue-500 mb-5 mt-10 text-center  md:text-start">
         Top Series
       </h1>
 
@@ -109,29 +109,31 @@ const HomeSeries = ({ items, data }) => {
                 color="blue-gray"
                 className="text-white font-bold"
               >
-                TITLE : {item.name}
+                TITLE : <span className="text-[#0DCAF0]">{item.name}</span>
               </Typography>
-              <div variant="lead" color="gray" className="flex ">
+              <div
+                variant="lead"
+                color="gray"
+                className="flex justify-between items-center"
+              >
                 <h1 className="text-white font-medium">
                   RATE :
-                  <span className="text-[#0DCAF0] font-semibold">
+                  <span className="text-[#0DCAF0] font-semibold ms-2">
                     {item.vote_average}
                   </span>
                 </h1>
-                <h1 className="mt-3">
-                  {/* <ReactStars
+                <h1 className="">
+                  <ReactStars
                     count={5}
-                    //   onChange={ratingChanged}
                     size={24}
                     color2={"#ffd700"}
-                  /> */}
-                  ,
+                    value={item.vote_average / 2}
+                    edit={false}
+                  />{" "}
                 </h1>
               </div>
               <div className="flex justify-center ">
-                <Link
-                // to={`/movies/${item.id}/title/${item.original_title}`}
-                >
+                <Link to={`/series/${item.id}/title/${item.name}`}>
                   <Button
                     variant="outlined"
                     className="border-double border-[#0DCAF0]  text-[#0DCAF0] hover:bg-[#0DCAF0] hover:text-black"

@@ -62,7 +62,7 @@ export const HomeMovies = ({ data, items }) => {
 
   return (
     <div className="w-full container mx-auto ">
-      <h1 className=" text-4xl ms-9 text-blue-500 mb-5 text-center  md:text-start">
+      <h1 className=" text-4xl ps-9 text-blue-500 mb-5 text-center  md:text-start">
         {" "}
         Movies
       </h1>
@@ -106,25 +106,29 @@ export const HomeMovies = ({ data, items }) => {
               <Typography
                 variant="h4"
                 color="blue-gray"
-                className="text-white font-bold"
+                className="text-white font-bold "
               >
-                TITLE : {item.title}
+                TITLE : <span className="text-[#0DCAF0]">{item.title}</span>
               </Typography>
-              <div variant="lead" color="gray" className="mt-5">
-                <h1 className="text-white font-medium">
+              <div
+                variant="lead"
+                color="gray"
+                className="flex justify-between items-center"
+              >
+                <h1 className="text-white font-medium ">
                   RATE :
-                  <span className="text-[#0DCAF0] font-semibold">
+                  <span className="text-[#0DCAF0] font-semibold ms-2">
                     {item.vote_average}
                   </span>
                 </h1>
-                <h1 className="mt-3">
-                  {/* <ReactStars
-                  count={5}
-                  //   onChange={ratingChanged}
-                  size={24}
-                  color2={"#ffd700"}
-                /> */}
-                  ,
+                <h1 className="">
+                  <ReactStars
+                    count={5}
+                    size={24}
+                    color2={"#ffd700"}
+                    value={item.vote_average / 2}
+                    edit={false}
+                  />{" "}
                 </h1>
               </div>
               <div className="flex justify-center ">

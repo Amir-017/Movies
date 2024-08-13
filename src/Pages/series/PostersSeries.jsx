@@ -35,19 +35,21 @@ const BackDropsSeries = () => {
   };
   return (
     <div className="my-10">
-      <div className=" w-full  bg-[#212529] px-10 pt-5 flex mb-10">
+      <div className=" w-full  bg-[#212529] px-10 pt-5 flex justify-center items-center flex-col md:flex-row md:justify-start ">
+        {/* <div className=""> */}
         <img
           src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${seriesDetails.poster_path}`}
           alt="logo"
-          width="12%"
-          className="rounded mb-5"
+          // width="20%"
+          className="rounded-2xl mb-5 w-[30%] md:w-[12%]"
         />
+        {/* </div> */}
 
-        <div className="w-full flex flex-col justify-center  px-10 ">
-          <h1 className="text-white font-bold  text-3xl">
+        <div className="w-full flex  flex-col justify-start   px-0 md:justify-center md:px-10 ">
+          <h1 className="text-white font-bold  text-3xl text-center md:text-start">
             {seriesDetails.name}
           </h1>
-          <div className="mt-5">
+          <div className="my-5 flex justify-center md:justify-start">
             <Button
               onClick={backAstep}
               variant="outlined"
@@ -58,16 +60,17 @@ const BackDropsSeries = () => {
           </div>
         </div>
       </div>
-      <h1 className="text-white text-4xl container mx-auto my-10">
+      <h1 className="text-white text-4xl container mx-auto my-10 text-center lg:text-start">
         All Posters :
       </h1>
-      <div className="w-full flex flex-wrap gap-10 container mx-auto">
+      <div className="w-full grid justify-items-center grid-cols-1  gap-10 container mx-auto md:grid-cols-2 lg:grid-cols-3">
         {posters &&
-          posters.map((imgBack, i) => (
+          posters.map((imgPost, i) => (
             <div className="" key={i}>
               <img
+                className="rounded-2xl"
                 alt=""
-                src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${imgBack.file_path}`}
+                src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${imgPost.file_path}`}
                 width={200}
                 height={200}
               />

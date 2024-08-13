@@ -200,22 +200,20 @@ const homeSeriesSlice = createSlice({
   reducers: {
     increment: (state) => {
       state.counter += 1;
-      // state.checkMovies = false;
-      // console.log(payload);
+
       state.checkCountSeries = !state.checkCountSeries;
     },
     decrement: (state) => {
       state.counter -= 1;
       state.checkMovies = false;
-      // console.log(payload);
       state.checkCountSeries = !state.checkCountSeries;
     },
     aboutRecommend: (state) => {
       state.checkRecommendSeries = !state.checkRecommendSeries;
-      // console.log(state.checkRecommendSeries);
     },
   },
   extraReducers: (builder) => {
+    ////////////////////////////// series
     builder.addCase(getSeries.pending, (state, action) => {
       state.seriesHomeLoading = true;
     });
@@ -230,10 +228,9 @@ const homeSeriesSlice = createSlice({
       state.seriesHomeLoading = false;
       state.seriesHomeError = action.payload.message;
     });
-    // series details :-
+    ///////////////////////////////// series details :-
     builder.addCase(getSeriesDetails.pending, (state, action) => {
       state.seriesDetailsLoading = true;
-      // console.log("keeping");
     });
     builder.addCase(getSeriesDetails.fulfilled, (state, action) => {
       state.seriesDetails = action.payload;
@@ -242,40 +239,30 @@ const homeSeriesSlice = createSlice({
     builder.addCase(getSeriesDetails.rejected, (state, action) => {
       console.log("error");
     });
-    // cast and crew Series
+    /////////////////////////////////// cast and crew Series
     builder.addCase(getCastCrewSeries.pending, (state, action) => {
       state.castAndCrewSeriesLoading = true;
-      // console.log("keeping");
     });
     builder.addCase(getCastCrewSeries.fulfilled, (state, action) => {
       state.castAndCrewSeries = action.payload;
       state.castShownSeries = action.payload.cast.filter((actor, i) => {
         return i < 15;
       });
-      // console.log(state.castAndCrewSeries);
       state.castAndCrewSeriesLoading = false;
     });
     builder.addCase(getCastCrewSeries.rejected, (state, action) => {
       console.log("error");
     });
-    //// all review series
+    ////////////////////////////////////// all review series
     builder.addCase(getReviewSeries.pending, (state, action) => {
-      //   state.moviesLoading = true;
-      // console.log("keeping");
       state.reviewsSeriesLoading = true;
     });
     builder.addCase(getReviewSeries.fulfilled, (state, action) => {
       state.reviewsSeries = action.payload;
-      // .map((mem, i) => {
-      //   return i <= 15;
-      // });
 
       state.reviewsSeriesLoading = false;
-
-      //   state.moviesLoading = false;
     });
     builder.addCase(getReviewSeries.rejected, (state, action) => {
-      //   state.moviesLoading = false;
       state.seriesReviewError = action.payload.results;
       console.log("error");
     });
@@ -286,8 +273,6 @@ const homeSeriesSlice = createSlice({
     builder.addCase(getVideoSeries.fulfilled, (state, action) => {
       state.videoSeries = action.payload.results;
       state.videoLoadingSeries = false;
-
-      // state.checkSearchMovie = false;
     });
     builder.addCase(getVideoSeries.rejected, (state, action) => {
       console.log("error");
@@ -311,11 +296,6 @@ const homeSeriesSlice = createSlice({
     builder.addCase(getRecommendSeris.fulfilled, (state, action) => {
       state.recommendationSeries = action.payload.results;
       state.recommendationLoadingSeries = false;
-
-      // .results.filter((highMovie) => {
-      //   return highMovie.vote_average > 7;
-
-      // });
     });
     builder.addCase(getRecommendSeris.rejected, (state, action) => {
       console.log("error");

@@ -1,7 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMovieDetails } from "../../SystmeRdx/Slices/moviesSlices/moviesSlice";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import {
+  getCastCrewEpisodes,
+  getEpisodes,
+} from "../../SystmeRdx/Slices/seriesSlices/aboutSeasonsAndEpisodesSlice";
+import { getSeriesDetails } from "../../SystmeRdx/Slices/seriesSlices/homeSeriesSlice";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
 import {
   Card,
@@ -13,44 +19,50 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 import img from "../../Photos/th.jpeg";
-import { getCastCrew } from "../../SystmeRdx/Slices/moviesSlices/castAndCrew";
-const AllWorkers = () => {
-  const { movieDetails } = useSelector((state) => state.myMovies);
-  const dispatch = useDispatch();
-  const { idMovie, nameMovie } = useParams();
-  // console.log(idMovie);
-  useEffect(() => {
-    dispatch(getMovieDetails(idMovie));
-    dispatch(getCastCrew(idMovie));
-  }, []);
-  const {
-    castAndCrew: { cast, crew },
-    castShown,
-  } = useSelector((state) => state.AllcastAndCrew);
-  // console.log(cast);
 
+import fakeImg from "../../Photos/avatar-black-and-white-clipart-7.jpg";
+import { FaStar } from "react-icons/fa";
+import ShowMoreText from "react-show-more-text";
+
+const CastAndCrewEpisode = () => {
+  const { idseries, season_number, episodenum } = useParams();
+
+  const { seriesDetails } = useSelector((state) => state.series);
+
+  const {
+    castCrewEpisodes: { cast, crew },
+    castCrewEpisodes,
+  } = useSelector((state) => state.episodesAndCastCrew);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getCastCrewEpisodes({ idseries, season_number, episodenum }));
+    dispatch(getSeriesDetails(idseries));
+  }, []);
+  console.log(castCrewEpisodes);
   const backAstep = () => {
     navigate(-1);
   };
-  // console.log(cast);
+
   return (
     <div className=" w-full">
       <div className=" w-full  bg-[#212529] px-10 pt-5 flex justify-center items-center flex-col md:flex-row md:justify-start ">
         {/* <div className=""> */}
         <img
-          src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movieDetails.poster_path}`}
+          src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${seriesDetails.poster_path}`}
           alt="logo"
           // width="20%"
-          className="rounded mb-5 w-[30%] md:w-[12%]"
+          className="rounded-2xl mb-5 w-[30%] md:w-[12%]"
         />
         {/* </div> */}
 
-        <div className="w-full flex  flex-col justify-start   px-0 md:justify-center md:px-10 ">
+        <div className="w-full flex  flex-col    px-0  md:px-10 ">
           <h1 className="text-white font-bold  text-3xl text-center md:text-start">
-            {movieDetails.title}
+            {seriesDetails.name}
           </h1>
-          <div className="my-5 flex justify-center md:justify-start">
+          <div className="my-5 flex justify-center items-center md:justify-start">
             <Button
               onClick={backAstep}
               variant="outlined"
@@ -62,14 +74,15 @@ const AllWorkers = () => {
         </div>
       </div>
       <div className=" flex justify-between   container mx-auto mt-10 flex-col md:flex-row">
-        <div className="ms-10">
-          <h1 className="text-3xl text-white container mx-auto py-5 font-bold ">
-            Cast : <span className="text-[#0DCAF0] "></span>
+        <div className="ms-10 flex flex-col justify-center items-center md:justify-start md:items-start">
+          <h1 className="text-3xl text-white container mx-auto py-5 font-bold text-center md:text-start ">
+            Cast :{" "}
+            <span className="text-[#0DCAF0] ">{cast && cast.length}</span>
           </h1>
           {cast &&
             cast.map((actor, i) => (
               <div className="" key={i}>
-                <Card className="w-[15rem] h-[26rem] bg-[#212529] rounded shadow-gray-900 flex my-10">
+                <Card className="w-[15rem] h-[26rem] bg-[#212529] rounded shadow-gray-900 flex my-10 ">
                   <CardHeader
                     floated={false}
                     shadow={false}
@@ -83,7 +96,7 @@ const AllWorkers = () => {
                         // width="100%"
                       />
                     ) : (
-                      <img src={img} className="" />
+                      <img src={img} width="100%" />
                     )}
                   </CardHeader>
                   <CardBody className="font-bold py-5">
@@ -98,15 +111,16 @@ const AllWorkers = () => {
               </div>
             ))}
         </div>
-        <div className="ms-10">
-          <h1 className="text-3xl text-white container mx-auto py-5 font-bold ">
-            Crew : <span className="text-[#0DCAF0] "></span>
+        <div className="ms-10  flex flex-col justify-center items-center md:justify-start md:items-start">
+          <h1 className="text-3xl text-white container mx-auto py-5 font-bold text-center md:text-start">
+            Crew :{" "}
+            <span className="text-[#0DCAF0] ">{crew && crew.length}</span>
           </h1>
           {crew &&
             crew.map((actor, i) => (
               <div className="" key={i}>
                 {/*  */}
-                <h1 className="text-white text-3xl">
+                <h1 className="text-white text-3xl text-center md:text-start">
                   {" *"}
                   {actor.known_for_department == "Writing"
                     ? actor.department
@@ -187,7 +201,7 @@ const AllWorkers = () => {
         <Button
           onClick={backAstep}
           variant="outlined"
-          className=" border-[#0DCAF0]  text-[#0DCAF0] hover:bg-[#0DCAF0] hover:text-[white]"
+          className=" border-[#0DCAF0]  text-[#0DCAF0] hover:bg-[#0DCAF0] hover:text-black"
         >
           Back a step
         </Button>
@@ -196,4 +210,4 @@ const AllWorkers = () => {
   );
 };
 
-export default AllWorkers;
+export default CastAndCrewEpisode;

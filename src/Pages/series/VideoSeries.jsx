@@ -36,21 +36,23 @@ const VideoSeries = () => {
   // console.log(videoSeries);
   // console.log(seriesDetails);
   return (
-    <div className="w-full text-white text-2xl ">
+    <div className="w-full text-white ">
       {/* header */}
-      <div className=" w-full  bg-[#212529] px-10 pt-5 flex mb-10">
+      <div className=" w-full   bg-[#212529] px-10 pt-5 flex justify-center items-center flex-col md:flex-row md:justify-start ">
+        {/* <div className=""> */}
         <img
           src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${seriesDetails.poster_path}`}
           alt="logo"
-          width="12%"
-          className="rounded mb-5"
+          // width="20%"
+          className="rounded mb-5 w-[30%] md:w-[12%]"
         />
+        {/* </div> */}
 
-        <div className="w-full flex flex-col justify-center  px-10 ">
-          <h1 className="text-white font-bold  text-3xl">
+        <div className="w-full flex  flex-col justify-start   px-0 md:justify-center md:px-10 ">
+          <h1 className="text-white font-bold  text-3xl text-center md:text-start">
             {seriesDetails.name}
           </h1>
-          <div className="mt-5">
+          <div className="my-5 flex justify-center md:justify-start">
             <Button
               onClick={backAstep}
               variant="outlined"
@@ -63,16 +65,14 @@ const VideoSeries = () => {
       </div>
 
       {/* videos */}
-      <div className="w-full  grid justify-items-center gap-y-[5rem]  ">
+      <div className="  grid justify-items-center gap-y-[5rem]  ">
         <h1 className="text-white text-4xl container mx-auto my-5">
           All Videos :
         </h1>
         {videoSeries.map((serie, i) => (
           <div className="" key={i}>
             <iframe
-              className="border-[.1rem]"
-              width="1400"
-              height="400"
+              className="border-[.1rem] w-[300px] h-[300px] md:w-[800px] md:h-[400px] lg:w-[1000px] lg:h-[400px]"
               src={`https://www.youtube.com/embed/${serie.key}?si=bLuvl3WnAUMERPL9`}
               title="YouTube video player"
               frameBorder="0"
@@ -83,9 +83,6 @@ const VideoSeries = () => {
           </div>
         ))}
       </div>
-      {/* {videoSeries.map((movie) => (
-    <h1 key={movie.id}>{movie.name}</h1>
-  ))} */}
     </div>
   );
 };

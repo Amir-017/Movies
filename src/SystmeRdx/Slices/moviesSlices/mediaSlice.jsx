@@ -3,17 +3,21 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const data = {
+  // video movie
   videoMovie: [],
   videoLoading: false,
+  // backdrop & posters movie
   backDrops: [],
+  // collection movie
   collectionMovie: {},
   collectionMovieDetails: {},
+  //recommendation movie
   recommendationMovie: [],
   recommendationLoading: false,
-  // collId: false,
   checkRecommend: false,
 };
 
+/////////////////// video Movie
 export const getVideoMovie = createAsyncThunk(
   "getAllVideo",
   async (id, asyncThunkk) => {
@@ -36,6 +40,7 @@ export const getVideoMovie = createAsyncThunk(
     }
   }
 );
+/////////////////// backdrop and posters Movie
 
 export const getBackDrops = createAsyncThunk(
   "getBackdrops",
@@ -58,6 +63,7 @@ export const getBackDrops = createAsyncThunk(
     }
   }
 );
+/////////////////// recommendation Movie
 
 export const getRecommendMovie = createAsyncThunk(
   "getAllRecommend",
@@ -98,13 +104,10 @@ const mediaSlice = createSlice({
     builder.addCase(getVideoMovie.fulfilled, (state, action) => {
       state.videoMovie = action.payload.results;
       state.videoLoading = false;
-
-      // state.checkSearchMovie = false;
     });
     builder.addCase(getVideoMovie.rejected, (state, action) => {
       console.log("error");
     });
-    /// videos
 
     //backdrops
     builder.addCase(getBackDrops.pending, (state, action) => {});
@@ -114,7 +117,6 @@ const mediaSlice = createSlice({
     builder.addCase(getBackDrops.rejected, (state, action) => {
       console.log("error");
     });
-    ///backdrops
 
     //collection Movie
     // builder.addCase(getCollectionMovie.pending, (state, action) => {
@@ -128,28 +130,13 @@ const mediaSlice = createSlice({
     //   console.log("error");
     // });
 
-    // movie details
-    // builder.addCase(getMovieDetailsCollection.pending, (state, action) => {
-    // });
-    // builder.addCase(getMovieDetailsCollection.fulfilled, (state, action) => {
-    //   state.collectionMovieDetails = action.payload;
-    // });
-    // builder.addCase(getMovieDetailsCollection.rejected, (state, action) => {
-    //   console.log("error");
-    // });
     // recommendation movie
     builder.addCase(getRecommendMovie.pending, (state, action) => {
-      // console.log("keeping");
       state.recommendationLoading = true;
     });
     builder.addCase(getRecommendMovie.fulfilled, (state, action) => {
       state.recommendationMovie = action.payload.results;
       state.recommendationLoading = false;
-
-      // .results.filter((highMovie) => {
-      //   return highMovie.vote_average > 7;
-
-      // });
     });
     builder.addCase(getRecommendMovie.rejected, (state, action) => {
       console.log("error");
@@ -159,6 +146,3 @@ const mediaSlice = createSlice({
 
 export const myMediaMovie = mediaSlice.reducer;
 export const { aboutRecommend } = mediaSlice.actions;
-// videos and collection movie
-
-////// recommendation movie

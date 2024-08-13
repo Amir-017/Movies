@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import state from "sweetalert/typings/modules/state";
 
 const data = {
+  // search movie
+
   moviesSearch: [],
   moviesSearchLoading: false,
   moviesSearchError: null,
@@ -13,12 +14,11 @@ const data = {
   seriesSearch: [],
   changeOneToAnother: "",
 };
-
+//////////////////////// search movie
 export const getSearchMovies = createAsyncThunk(
   "getMoviessearch",
   async (nameSearch, asyncThunk) => {
     const { rejectWithValue } = asyncThunk;
-    // const navigate = useNavigate();
 
     try {
       const allSearch = await axios({
@@ -44,7 +44,7 @@ export const getSearchMovies = createAsyncThunk(
 );
 ////////////////////////////////////// search series
 export const getSearchSeries = createAsyncThunk(
-  "getSeriesssearch",
+  "getSeriesSearch",
   async (nameSearch, asyncThunk) => {
     const { rejectWithValue } = asyncThunk;
 
@@ -75,8 +75,6 @@ const homeMoviesSearch = createSlice({
   initialState: data,
   reducers: {
     aboutSearch: (state) => {
-      // state.searchLength = 0;
-      // console.log(state.searchLength);
       state.checkSearchMovie = !state.checkSearchMovie;
     },
     del: (state) => {
@@ -90,6 +88,8 @@ const homeMoviesSearch = createSlice({
     },
   },
   extraReducers: (builder) => {
+    //////////// search Movie
+
     builder.addCase(getSearchMovies.pending, (state, action) => {});
     builder.addCase(getSearchMovies.fulfilled, (state, action) => {
       state.searchLength = false;

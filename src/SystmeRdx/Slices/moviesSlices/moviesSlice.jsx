@@ -2,22 +2,23 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const data = {
+  // movies
   movies: [],
 
   moviesLoading: false,
-  movieDetailsLoading: false,
   moviesError: null,
   counter: 1,
-  checkLoop: false,
-  //
-  movieDetails: {},
   checkCount: false,
-  // movieDetailsLoading :
+  movies2: [],     
+
+  checkLoop: false,
+  //movie Details
+  movieDetailsLoading: false,
+  movieDetails: {},
   collId: "",
   checkId: false,
-  movies2: [],
 };
-
+////////////////////// movie page
 export const getMoviesPage = createAsyncThunk(
   "getMoviesPage",
   async (id = 1, asyncThunkk) => {
@@ -43,7 +44,7 @@ export const getMoviesPage = createAsyncThunk(
     }
   }
 );
-//////
+////////////////////// movie details
 export const getMovieDetails = createAsyncThunk(
   "getMoviesDetails",
   async (id, asyncThunkk) => {
@@ -73,14 +74,12 @@ const MoviesSlice = createSlice({
   reducers: {
     incress: (state) => {
       state.counter += 1;
-      // state.checkMovies = false;
-      // console.log(payload);
+
       state.checkCount = !state.checkCount;
     },
     decress: (state) => {
       state.counter -= 1;
       state.checkMovies = false;
-      // console.log(payload);
       state.checkCount = !state.checkCount;
     },
   },
@@ -88,13 +87,9 @@ const MoviesSlice = createSlice({
     // all movies
     builder.addCase(getMoviesPage.pending, (state, action) => {
       state.moviesLoading = true;
-      // console.log("keeping");
     });
     builder.addCase(getMoviesPage.fulfilled, (state, action) => {
       state.movies = action.payload.results;
-      // action.payload.results.map((movie) => {
-      //   state.movies2 = movie;
-      // });
 
       state.moviesLoading = false;
     });
@@ -107,7 +102,6 @@ const MoviesSlice = createSlice({
     //movie details
     builder.addCase(getMovieDetails.pending, (state, action) => {
       state.movieDetailsLoading = true;
-      // console.log("keeping");
     });
     builder.addCase(getMovieDetails.fulfilled, (state, action) => {
       state.movieDetails = action.payload;

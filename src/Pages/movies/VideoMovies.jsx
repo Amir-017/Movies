@@ -20,9 +20,6 @@ const VideoMovies = () => {
   const navigate = useNavigate();
   const backAstep = () => {
     navigate(-1);
-    // if (sweetCheck) {
-    //   sweetCheck = false;
-    // }
   };
   // console.log(videoMovie);
   return (
@@ -62,7 +59,7 @@ const VideoMovies = () => {
         {videoMovie.map((movie, i) => (
           <div className="" key={i}>
             <iframe
-              className="border-[.1rem] w-[900px] h-[300px] md:w-[800px] md:h-[300px]"
+              className="border-[.1rem] w-[300px] h-[300px] md:w-[800px] md:h-[400px] lg:w-[1000px] lg:h-[400px]"
               // width="1400"
               // height="400"
 

@@ -133,12 +133,12 @@ const Header = () => {
   }, []);
 
   //
-  const {
-    movies,
-    movies2,
-    checkLoop,
-    movieDetails: { belongs_to_collection },
-  } = useSelector((state) => state.myMovies);
+  // const {
+  //   movies,
+  //   movies2,
+  //   checkLoop,
+  //   movieDetails: { belongs_to_collection },
+  // } = useSelector((state) => state.myMovies);
 
   const { moviesSearch, searchLength, changeOneToAnother, seriesSearch } =
     useSelector((state) => state.aboutSearchMovie);

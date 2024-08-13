@@ -18,7 +18,7 @@ const Home = () => {
   // console.log(series);
   // console.log(seriesHome);
   return (
-    <div className=" bg-black tablet:bg-green-600">
+    <div className=" bg-black ">
       <HomeHeader />
       <HomeMovies data={moviesHome} items={topMovies} />
 

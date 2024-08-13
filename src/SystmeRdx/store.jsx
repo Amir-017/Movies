@@ -5,6 +5,7 @@ import { myMovies } from "./Slices/moviesSlices/moviesSlice";
 import { AllcastAndCrew } from "./Slices/moviesSlices/castAndCrew";
 import { myMediaMovie } from "./Slices/moviesSlices/mediaSlice";
 import { aboutSearchMovie } from "./Slices/moviesSlices/searchMovies";
+import { episodesAndCastCrew } from "./Slices/seriesSlices/aboutSeasonsAndEpisodesSlice";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     AllcastAndCrew,
     myMediaMovie,
     aboutSearchMovie,
+    episodesAndCastCrew,
   },
 });
 

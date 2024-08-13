@@ -12,6 +12,7 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import ReactStars from "react-stars";
 import { IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
@@ -24,7 +25,10 @@ const Series = () => {
   useEffect(() => {
     dispatch(getSeries(counter));
   }, [checkCountSeries ? checkCountSeries : checkCountSeries]);
-  // console.log();
+  // console.log(series);
+  const ratingChanged = (newRating) => {
+    console.log(newRating);
+  };
   return (
     <div>
       {seriesHomeLoading ? (
@@ -56,8 +60,8 @@ const Series = () => {
         </div>
       ) : (
         <div className="">
-          <h1 className=" text-[#0DCAF0] font-bold text-4xl container mx-auto my-5">
-            Series
+          <h1 className=" text-[#0DCAF0] font-bold text-4xl container mx-auto my-5 text-center md:text-center lg:text-start">
+            series
           </h1>
           <h1 className=" text-white w-full text-center   font-bold text-4xl container mx-auto my-10">
             Page{" "}
@@ -65,7 +69,7 @@ const Series = () => {
             From <span className="text-[#0DCAF0] underline mx-2">500</span>
           </h1>
 
-          <div className="grid grid-cols-4 justify-items-center items-center  gap-5 container mx-auto ">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center items-center  gap-5 container mx-auto ">
             {series.map((serie, i) => (
               <Card
                 className="rounded-2xl w-[19rem] flex justify-center items-center flex-wrap bg-gray-900 "
@@ -78,7 +82,7 @@ const Series = () => {
                   className="m-0  w-full"
                 >
                   <img
-                    src={`https://media.themoviedb.org/t/p/w220_and_h330_face${serie.backdrop_path}`}
+                    src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${serie.backdrop_path}`}
                     alt="logo"
                     width="100%"
                   />
@@ -89,28 +93,35 @@ const Series = () => {
                     color="blue-gray"
                     className="text-white font-bold"
                   >
-                    TITLE : {serie.name}
+                    TITLE : <span className="text-[#0DCAF0]">{serie.name}</span>
                   </Typography>
                   <div
                     variant="lead"
                     color="gray"
-                    className="flex justify-start items-center"
+                    className="flex justify-between items-center"
                   >
                     <h1 className="text-white font-medium">
                       RATE :
-                      <span className="text-[#0DCAF0] font-semibold">
+                      <span className="text-[#0DCAF0] font-semibold ms-2">
                         {serie.vote_average}
                       </span>
                     </h1>
-                    <h1 className="mt-3">
-                      {/* <ReactStars count={5} size={24} color2={"#ffd700"} />, */}
+                    <h1 className="">
+                      <ReactStars
+                        count={5}
+                        onChange={ratingChanged}
+                        size={24}
+                        color2={"#ffd700"}
+                        value={serie.vote_average / 2}
+                        edit={false}
+                      />{" "}
                     </h1>
                   </div>
                   <div className="flex justify-center ">
                     <Link to={`/series/${serie.id}/title/${serie.name}`}>
                       <Button
                         variant="outlined"
-                        className="border-double border-[#0DCAF0]  text-[#0DCAF0] hover:bg-[#0DCAF0] hover:text-black"
+                        className=" border-[#0DCAF0]  text-[#0DCAF0] hover:bg-[#0DCAF0] hover:text-black"
                       >
                         Details
                       </Button>
@@ -124,7 +135,7 @@ const Series = () => {
             <IconButton
               size="sm"
               variant="outlined"
-              onClick={() => dispatch(decrement())}
+              onClick={() => dispatch(decress())}
               disabled={counter === 1}
               className="bg-white"
             >
@@ -137,7 +148,7 @@ const Series = () => {
             <IconButton
               size="sm"
               variant="outlined"
-              onClick={() => dispatch(increment())}
+              onClick={() => dispatch(incress())}
               disabled={counter === 500}
               className="bg-white"
             >

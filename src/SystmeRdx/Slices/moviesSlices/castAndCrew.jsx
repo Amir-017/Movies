@@ -2,15 +2,18 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const data = {
+  // cast crew
   castAndCrew: [],
   castAndCrewLoading: false,
   castShown: [],
+  //reviews
   reviews: [],
   reviewsLoading: false,
+  // about actor
   infoActor: {},
   actorsWork: [],
 };
-
+///////////// cast & crew movie
 export const getCastCrew = createAsyncThunk(
   "getCastCrew",
   async (id, asyncThunkk) => {
@@ -33,7 +36,7 @@ export const getCastCrew = createAsyncThunk(
     }
   }
 );
-//
+///////////// review movie
 export const getReviewMovie = createAsyncThunk(
   "getAllReviews",
   async (id, asyncThunkk) => {
@@ -56,7 +59,7 @@ export const getReviewMovie = createAsyncThunk(
     }
   }
 );
-//
+/////////////about actor movie
 export const getInfoActor = createAsyncThunk(
   "about actor",
   async (id, asyncThunkk) => {
@@ -79,7 +82,7 @@ export const getInfoActor = createAsyncThunk(
     }
   }
 );
-//
+///////////// work actor
 export const getWorkActor = createAsyncThunk(
   " actor work",
   async (id, asyncThunkk) => {
