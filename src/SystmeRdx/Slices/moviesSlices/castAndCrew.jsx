@@ -12,6 +12,7 @@ const data = {
   // about actor
   infoActor: {},
   actorsWork: [],
+  infoActorLoading: false,
 };
 ///////////// cast & crew movie
 export const getCastCrew = createAsyncThunk(
@@ -150,13 +151,13 @@ const castAndCrew = createSlice({
     });
     // about actor
     builder.addCase(getInfoActor.pending, (state, action) => {
-      //   state.moviesLoading = true;
+      state.infoActorLoading = true;
       // console.log("keeping");
     });
     builder.addCase(getInfoActor.fulfilled, (state, action) => {
       state.infoActor = action.payload;
 
-      //   state.moviesLoading = false;
+      state.infoActorLoading = false;
     });
     builder.addCase(getInfoActor.rejected, (state, action) => {
       //   state.moviesLoading = false;

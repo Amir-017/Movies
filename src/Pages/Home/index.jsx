@@ -7,7 +7,9 @@ import { getMovies } from "../../SystmeRdx/Slices/moviesSlices/homeMoviesSlice";
 import { getSeries } from "../../SystmeRdx/Slices/seriesSlices/homeSeriesSlice";
 
 const Home = () => {
-  const { moviesHome, topMovies } = useSelector((state) => state.movies);
+  const { moviesHome, topMovies, moviesHomeLoading } = useSelector(
+    (state) => state.movies
+  );
   const { series, topSeries } = useSelector((state) => state.series);
   const dispatch = useDispatch();
 
@@ -20,7 +22,12 @@ const Home = () => {
   return (
     <div className=" bg-black ">
       <HomeHeader />
-      <HomeMovies data={moviesHome} items={topMovies} />
+
+      <HomeMovies
+        data={moviesHome}
+        items={topMovies}
+        moviesHomeLoading={moviesHomeLoading}
+      />
 
       <HomeSeries items={topSeries} data={series} />
     </div>

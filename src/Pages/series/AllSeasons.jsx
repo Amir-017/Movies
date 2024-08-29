@@ -103,14 +103,26 @@ const AllSeasons = () => {
                 </CardHeader>
                 <CardBody className="w-full   ">
                   <div className=" font-bold text-white flex flex-col gap-y-5    ">
-                    <div className="flex flex-col   md:flex-col lg:flex-row lg:gap-x-5 md:gap-y-5 items-center justify-evenly lg:items-start lg:justify-start  text-2xl">
-                      <h1> Season {last.season_number}</h1>
+                    <div className="flex flex-col   md:flex-col lg:flex-row lg:gap-x-5 md:gap-y-5 items-center justify-evenly lg:items-start lg:justify-between  text-2xl">
+                      <h1 className="text-white">
+                        {" "}
+                        Season{" "}
+                        <span className="text-[#0DCAF0]">
+                          {last.season_number}
+                        </span>
+                      </h1>
                       <div className="bg-white text-black flex rounded py-2 px-2 my-5 md:my-0 ">
                         <h1>{last.vote_average}</h1>
                         <FaStar className="me-0 md:me-2" />{" "}
                       </div>
-                      <h1 className="">
-                        {last.air_date?.slice(0, 4)} | {last.episode_count}{" "}
+                      <h1 className="text-white">
+                        <span className="text-[#0DCAF0]">
+                          {last.air_date?.slice(0, 4)}
+                        </span>{" "}
+                        |{" "}
+                        <span className="text-[#0DCAF0]">
+                          {last.episode_count}
+                        </span>{" "}
                         Episodes
                       </h1>
                     </div>
@@ -137,9 +149,7 @@ const AllSeasons = () => {
                           less="Show less"
                           className="content-css"
                           anchorClass="show-more-less-clickable"
-                          // onClick={this.executeOnClick}
                           expanded={false}
-                          // width={280}
                           truncatedEndingComponent={"... "}
                         >
                           {last.overview}
@@ -150,9 +160,6 @@ const AllSeasons = () => {
                         This Season Doesn't Have Overview Yet
                       </h1>
                     )}
-                    {/* <div className="h-[100%]">
-                    
-                  </div> */}
                   </div>
                 </CardBody>
               </Card>

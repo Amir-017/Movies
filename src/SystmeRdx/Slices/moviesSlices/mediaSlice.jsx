@@ -8,9 +8,7 @@ const data = {
   videoLoading: false,
   // backdrop & posters movie
   backDrops: [],
-  // collection movie
-  collectionMovie: {},
-  collectionMovieDetails: {},
+  backDropsLoading: false,
   //recommendation movie
   recommendationMovie: [],
   recommendationLoading: false,
@@ -110,25 +108,16 @@ const mediaSlice = createSlice({
     });
 
     //backdrops
-    builder.addCase(getBackDrops.pending, (state, action) => {});
+    builder.addCase(getBackDrops.pending, (state, action) => {
+      state.backDropsLoading = true;
+    });
     builder.addCase(getBackDrops.fulfilled, (state, action) => {
       state.backDrops = action.payload;
+      state.backDropsLoading = false;
     });
     builder.addCase(getBackDrops.rejected, (state, action) => {
       console.log("error");
     });
-
-    //collection Movie
-    // builder.addCase(getCollectionMovie.pending, (state, action) => {
-    //   console.log("keeping");
-    // });
-    // builder.addCase(getCollectionMovie.fulfilled, (state, action) => {
-    //   state.collectionMovie = action.payload;
-    //   console.log("done");
-    // });
-    // builder.addCase(getCollectionMovie.rejected, (state, action) => {
-    //   console.log("error");
-    // });
 
     // recommendation movie
     builder.addCase(getRecommendMovie.pending, (state, action) => {

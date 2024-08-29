@@ -11,7 +11,14 @@ import {
 import { BiAddToQueue } from "react-icons/bi";
 import { IoStarOutline } from "react-icons/io5";
 import { FaVideo } from "react-icons/fa6";
-import { Breadcrumbs, Button } from "@material-tailwind/react";
+import {
+  Breadcrumbs,
+  Button,
+  Dialog,
+  DialogBody,
+  DialogFooter,
+  DialogHeader,
+} from "@material-tailwind/react";
 import {
   Card,
   CardHeader,
@@ -133,6 +140,10 @@ const MovieDetails = () => {
   const aboutPostersMovie = () => {
     navigate(`/movieDetails/${idMovie}/title/${nameMovie}/posters`);
   };
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => setOpen(!open);
+  // console.log(videoMovie);
 
   return (
     <div className="">
@@ -201,16 +212,16 @@ const MovieDetails = () => {
                   </div>
                 </div>
                 <div className="w-full container mx-auto flex flex-col  lg:flex-row  mt-10 ">
-                  <div className="w-full lg:w-[30%]">
-                    <div className=" mb-5 w-full h-screen flex justify-center rounded-2xl   ">
+                  <div className="w-full lg:w-[30%] flex justify-center items-center">
+                    <div className=" mb-5 w-[60%] h-[60%]  md:w-[70%] md:h-[70%] lg:w-full lg:h-screen flex justify-center rounded-2xl   ">
                       <img
                         src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movieDetails.poster_path}`}
-                        className="w-[65%] md:w-[70%]  lg:w-full   rounded-2xl"
+                        className="w-[80%] h-[80%] md:w-[80%] md:h-[50%]  lg:w-full lg:h-screen   rounded-2xl"
                       />
                     </div>
                   </div>
 
-                  <div className="flex flex-col ms-10 w-[70%] ">
+                  <div className="w-full lg:w-[70%] flex flex-col ms-0 lg:ms-10  justify-center md:justify-evenly items-center lg:justify-between ">
                     <div className="mb-10">
                       <h1 className="text-3xl text-[#0DCAF0] font-bold ">
                         OverView :{" "}
@@ -288,24 +299,71 @@ const MovieDetails = () => {
                         <h1 className="text-yellow-800">Production</h1>
                       </div>
                     </div>
-                    <div className="flex justify-between items-center text-white text-2xl">
+                    <div className="flex  justify-evenly items-center text-white text-2xl w-full lg:justify-between  ">
                       <div className="flex flex-col">
                         <h1 className="flex justify-center items-center text-3xl">
                           <BiAddToQueue />
                         </h1>
                         <h1>Add To Watch List</h1>
                       </div>
+                      <h1 className="text-white ">||</h1>
+
                       <div className="flex flex-col">
                         <h1 className="flex justify-center items-center text-yellow-600 text-3xl">
                           <IoStarOutline />
                         </h1>
-                        <h1>Rate Movie</h1>
+                        <h1>Rate Series</h1>
                       </div>
-                      <div className="flex flex-col">
-                        <h1 className="flex justify-center items-center text-[red] text-3xl">
-                          <FaVideo />
-                        </h1>
-                        <h1>Play Trailer</h1>
+                      <h1 className="text-white ">||</h1>
+
+                      <div className="flex flex-col ">
+                        <Button
+                          onClick={handleOpen}
+                          variant="text"
+                          className="text-white text-xl font-medium"
+                        >
+                          <h1 className="flex justify-center items-center text-[red] text-3xl ">
+                            <FaVideo />
+                          </h1>
+                          play trailer
+                        </Button>
+                        <Dialog
+                          open={open}
+                          handler={handleOpen}
+                          className="w-[50%]  md:w-[70%]  lg:w-full h-1/2 "
+                        >
+                          <DialogBody className="bg-gray-900 ">
+                            {videoMovie &&
+                              videoMovie.map(
+                                (movie, i) =>
+                                  i == 2 && (
+                                    <div className="" key={i}>
+                                      <iframe
+                                        className="rounded-2xl"
+                                        width="560"
+                                        height="315"
+                                        src={`https://www.youtube.com/embed/${movie.key}?si=zzkbzZD-WPe1M4_g`}
+                                        title="YouTube video player"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerPolicy="strict-origin-when-cross-origin"
+                                        allowFullScreen
+                                      ></iframe>
+                                    </div>
+                                  )
+                              )}
+                          </DialogBody>
+                          <DialogFooter className="bg-gray-900">
+                            <Button
+                              variant="text"
+                              color="red"
+                              onClick={handleOpen}
+                              className="mr-1"
+                            >
+                              <span>Cancel</span>
+                            </Button>
+                          </DialogFooter>
+                        </Dialog>
                       </div>
                     </div>
                     {/* button */}
@@ -360,7 +418,7 @@ const MovieDetails = () => {
           </div>
         ) : (
           <div className="flex justify-evenly w-full   ">
-            <div className="   w-[75%]  overflow-auto flex gap-5">
+            <div className="   w-[75%]  overflow-x-auto flex gap-2 container mx-auto">
               {castShown &&
                 castShown.map((actor, i) => (
                   <div className="" key={i}>
@@ -370,7 +428,7 @@ const MovieDetails = () => {
                           floated={false}
                           shadow={false}
                           color="transparent"
-                          className="m-0 rounded "
+                          className="m-0 rounded w-full"
                         >
                           {actor.profile_path ? (
                             <img
@@ -386,8 +444,14 @@ const MovieDetails = () => {
                             variant="h4"
                             className="flex flex-col  text-white gap-y-2"
                           >
-                            <h1> {actor.name}</h1>
-                            <h1> {actor.character}</h1>
+                            <h1 className="text-xl font-bold ">
+                              {" "}
+                              {actor.name}
+                            </h1>
+                            <h1 className="text-yellow-800 text-xl">
+                              {" "}
+                              {actor.character}
+                            </h1>
                           </div>
                         </CardBody>
                       </Card>
@@ -435,7 +499,7 @@ const MovieDetails = () => {
           </div>
         )}
 
-        <div className="container mx-auto py-5 ps-5  text-[#0DCAF0]  ">
+        <div className="container mx-auto mt-2  text-[#0DCAF0]  ">
           <Button
             onClick={aboutCastAndCrew}
             // to={`/movieDetails/${idMovie}/title/${nameMovie}`}
@@ -537,7 +601,7 @@ const MovieDetails = () => {
             {reviews.length >= 1 && (
               <Link
                 to={`/movieDetails/${idMovie}`}
-                className="w-full text-xl text-gray-700   py-5 hover:text-[white] text-center md:text-start underline "
+                className="w-full text-xl text-[#0DCAF0]  py-5 hover:text-[#0DCAF0] text-center md:text-start hover:underline "
               >
                 All Reviews
               </Link>

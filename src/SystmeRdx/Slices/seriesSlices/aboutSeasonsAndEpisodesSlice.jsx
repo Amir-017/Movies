@@ -72,7 +72,7 @@ const aboutSeasonsAndEpisodesSlice = createSlice({
     });
     // cast crew episodes
     builder.addCase(getCastCrewEpisodes.pending, (state, action) => {
-      state.castCrewEpisodes = true;
+      state.castCrewEpisodesLoading = true;
     });
     builder.addCase(getCastCrewEpisodes.fulfilled, (state, action) => {
       state.castCrewEpisodes = action.payload;

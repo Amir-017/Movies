@@ -15,7 +15,12 @@ import {
 import { BiAddToQueue } from "react-icons/bi";
 import { IoStarOutline } from "react-icons/io5";
 import { FaVideo } from "react-icons/fa6";
-import { Button } from "@material-tailwind/react";
+import {
+  Button,
+  Dialog,
+  DialogBody,
+  DialogFooter,
+} from "@material-tailwind/react";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import {
   Card,
@@ -112,7 +117,10 @@ const DetailsSeries = () => {
   const aboutPostersSeries = () => {
     navigate(`/Detailsseries/${idSeries}/title/${nameSeries}/posters`);
   };
+  // console.log(castShownSeries);
+  const [open, setOpen] = React.useState(false);
 
+  const handleOpen = () => setOpen(!open);
   return (
     <div className="">
       <div className="">
@@ -178,16 +186,16 @@ const DetailsSeries = () => {
                     </div>
                   </div>
                   <div className="w-full container mx-auto flex flex-col  lg:flex-row  mt-10 ">
-                    <div className="w-[100%] lg:w-[30%]">
-                      <div className=" mb-5  flex justify-center  h-screen rounded-[3em]  ">
+                    <div className="w-full lg:w-[30%] flex justify-center items-center">
+                      <div className=" mb-5 w-[60%] h-[60%]  md:w-[70%] md:h-[70%] lg:w-full lg:h-screen flex justify-center rounded-2xl   ">
                         <img
                           src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${seriesDetails.poster_path}`}
-                          className="w-[65%] md:w-[70%]  lg:w-[100%]  rounded-[2em]"
+                          className="w-[80%] h-[80%] md:w-[80%] md:h-[50%]  lg:w-full lg:h-screen   rounded-2xl"
                         />
                       </div>
                     </div>
 
-                    <div className="w-[70%] flex flex-col ms-10 ">
+                    <div className="w-full lg:w-[70%] flex flex-col ms-0 lg:ms-10  justify-center md:justify-evenly items-center lg:justify-between ">
                       <div className="mb-10">
                         <h1 className="text-3xl text-[#0DCAF0] font-bold ">
                           OverView :{" "}
@@ -265,24 +273,69 @@ const DetailsSeries = () => {
                           <h1 className="text-yellow-800">Production</h1>
                         </div>
                       </div>
-                      <div className="flex justify-between items-center text-white text-2xl">
+                      <div className="flex  justify-evenly items-center text-white text-2xl w-full lg:justify-between  ">
                         <div className="flex flex-col">
                           <h1 className="flex justify-center items-center text-3xl">
                             <BiAddToQueue />
                           </h1>
                           <h1>Add To Watch List</h1>
                         </div>
+                        <h1 className="text-white ">||</h1>
                         <div className="flex flex-col">
                           <h1 className="flex justify-center items-center text-yellow-600 text-3xl">
                             <IoStarOutline />
                           </h1>
                           <h1>Rate Series</h1>
                         </div>
-                        <div className="flex flex-col">
-                          <h1 className="flex justify-center items-center text-[red] text-3xl">
-                            <FaVideo />
-                          </h1>
-                          <h1>Play Trailer</h1>
+                        <h1 className="text-white">||</h1>
+                        <div className="flex flex-col ">
+                          <Button
+                            onClick={handleOpen}
+                            variant="text"
+                            className="text-white text-xl font-medium"
+                          >
+                            <h1 className="flex justify-center items-center text-[red] text-3xl ">
+                              <FaVideo />
+                            </h1>
+                            play trailer
+                          </Button>
+                          <Dialog
+                            open={open}
+                            handler={handleOpen}
+                            className="w-[50%]  md:w-[70%]  lg:w-full h-1/2 "
+                          >
+                            <DialogBody className="bg-gray-900 ">
+                              {videoSeries &&
+                                videoSeries.map(
+                                  (movie, i) =>
+                                    i == 2 && (
+                                      <div className="" key={i}>
+                                        <iframe
+                                          className="rounded-2xl"
+                                          width="560"
+                                          height="315"
+                                          src={`https://www.youtube.com/embed/${movie.key}?si=zzkbzZD-WPe1M4_g`}
+                                          title="YouTube video player"
+                                          frameBorder="0"
+                                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                          referrerPolicy="strict-origin-when-cross-origin"
+                                          allowFullScreen
+                                        ></iframe>
+                                      </div>
+                                    )
+                                )}
+                            </DialogBody>
+                            <DialogFooter className="bg-gray-900">
+                              <Button
+                                variant="text"
+                                color="red"
+                                onClick={handleOpen}
+                                className="mr-1"
+                              >
+                                <span>Cancel</span>
+                              </Button>
+                            </DialogFooter>
+                          </Dialog>
                         </div>
                       </div>
                       {/* button */}
@@ -337,7 +390,7 @@ const DetailsSeries = () => {
           </div>
         ) : (
           <div className="flex justify-evenly w-full   ">
-            <div className="   w-[75%]  overflow-auto flex gap-5">
+            <div className="   w-[75%]  overflow-auto flex gap-2 container mx-auto">
               {castShownSeries &&
                 castShownSeries.map((actor, i) => (
                   <div className="" key={i}>
@@ -347,11 +400,10 @@ const DetailsSeries = () => {
                           floated={false}
                           shadow={false}
                           color="transparent"
-                          className="m-0 rounded-[1em] "
+                          className="m-0 rounded w-full"
                         >
                           {actor.profile_path ? (
                             <img
-                              className=""
                               src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${actor.profile_path}`}
                               alt="ui/ux review check"
                             />
@@ -359,13 +411,16 @@ const DetailsSeries = () => {
                             <img src={img} className="w-full h-[18rem]" />
                           )}
                         </CardHeader>
-                        <CardBody className=" text-1xl ">
+                        <CardBody className=" text-1xl">
                           <div
                             variant="h4"
-                            className="flex flex-col  text-white gap-y-2 "
+                            className="flex flex-col  text-white gap-y-2"
                           >
-                            <h1> {actor.name}</h1>
-                            <h1> {actor.character}</h1>
+                            <h1 className="text-xl font-bold"> {actor.name}</h1>
+                            <h1 className="text-yellow-800 text-xl">
+                              {" "}
+                              {actor.character}
+                            </h1>
                           </div>
                         </CardBody>
                       </Card>
@@ -416,9 +471,10 @@ const DetailsSeries = () => {
             </div>
           </div>
         )}
-        <div className="container mx-auto py-5 ps-5  text-[#0DCAF0]  ">
+        <div className="container mx-auto mt-2  text-[#0DCAF0]  ">
           <Button
             onClick={aboutCastAndCrewSeries}
+            // to={`/movieDetails/${idMovie}/title/${nameMovie}`}
             className="text-gray-500  hover:text-white "
           >
             Full Cast And Crew
@@ -591,7 +647,7 @@ const DetailsSeries = () => {
                               <span className="text-[#0DCAF0] text-2xl font-bold">
                                 Content :-
                               </span>
-                              <ShowMoreText width={550}>
+                              <ShowMoreText width={550} className="text-xl">
                                 {review.content}
                               </ShowMoreText>
                             </h1>
@@ -676,26 +732,9 @@ const DetailsSeries = () => {
                           </h1>
                         )}
                       </Breadcrumbs>
-
-                      {/* <div className="text-none ">
-                        {value == "html" ? (
-                          <h1 className="text-black focus:text-5xl ">
-                            {label} ({videoSeries && videoSeries.length})
-                          </h1>
-                        ) : value == "react" ? (
-                          <h1 className="text-black ">
-                            {label} ({backdrops && backdrops.length})
-                          </h1>
-                        ) : (
-                          <h1 className="text-black ">
-                            {label} ({posters && posters.length})
-                          </h1>
-                        )}
-                      </div> */}
                     </Tab>
                   ))}
                 </TabsHeader>
-                {/* <Button className="focus:ring-2">adfasdf</Button> */}
                 <TabsBody className=" ">
                   {data.map(
                     ({ value, desc }, i) =>
@@ -739,7 +778,7 @@ const DetailsSeries = () => {
                                           key={i}
                                         >
                                           <img
-                                            className="rounded-[2em]"
+                                            className="rounded-[2em] "
                                             src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${drop.file_path}`}
                                             alt=""
                                             width={200}

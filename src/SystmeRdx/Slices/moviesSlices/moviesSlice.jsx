@@ -9,14 +9,12 @@ const data = {
   moviesError: null,
   counter: 1,
   checkCount: false,
-  movies2: [],     
+  movies2: [],
 
   checkLoop: false,
   //movie Details
   movieDetailsLoading: false,
   movieDetails: {},
-  collId: "",
-  checkId: false,
 };
 ////////////////////// movie page
 export const getMoviesPage = createAsyncThunk(

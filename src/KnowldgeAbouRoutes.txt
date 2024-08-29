@@ -1,7 +1,7 @@
 in folder movies:-
 .index & movieDetails together in moviesSlice.jsx
-.AllWorkers & ReviewMovie & cast&crew together in castAndCrew.jsx 
-.videos & backdrops & Posters together & collection movie & recommendation movie in mediaSlice.jsx     
+.AboutActor,AllWorkers & ReviewMovie & cast&crew together in castAndCrew.jsx 
+.videos & backdrops & Posters together &  recommendation movie in mediaSlice.jsx     
 . search movie in searchMovies.jsx
 
 /////////////////////////////////////////
