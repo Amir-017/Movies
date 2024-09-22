@@ -18,7 +18,6 @@ import {
   incress,
 } from "../../SystmeRdx/Slices/moviesSlices/moviesSlice";
 import { Link, useNavigate } from "react-router-dom";
-// import ReactStars from "react-stars";
 
 const Movies = () => {
   const {

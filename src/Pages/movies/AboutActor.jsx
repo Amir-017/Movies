@@ -134,12 +134,8 @@ const AboutActor = () => {
                     <div className="" key={i}>
                       <Link
                         to={`/movies/${movie.id}/title/${movie.original_title}`}
-                        // to={"/movieDetails"}
                       >
-                        <Card
-                          className="mt-10 w-96 bg-gray-900  font-bold "
-                          //   onClick={() => dispatch(aboutRecommend())}
-                        >
+                        <Card className="mt-10 w-96 bg-gray-900  font-bold ">
                           <CardHeader color="white" className="relative h-96">
                             <img
                               src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}

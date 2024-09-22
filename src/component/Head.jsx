@@ -35,35 +35,17 @@ const Head = () => {
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Typography
-        as={Link}
-        to="/"
-        // variant="small"
-        // color="white"
-        className="font-medium"
-      >
+      <Typography as={Link} to="/" className="font-medium">
         <div className="text-gray-500 hover:bg-transparent   hover:text-white  flex items-center gap-2 py-2 pr-4  ">
           Home
         </div>
       </Typography>
-      <Typography
-        as={Link}
-        to="/movies"
-        // variant=""
-        // color="white"
-        className="font-medium "
-      >
+      <Typography as={Link} to="/movies" className="font-medium ">
         <div className="hover:bg-transparent  text-gray-500 hover:bg-black hover:text-white flex items-center gap-2 py-2 pr-4 ">
           Movies
         </div>
       </Typography>
-      <Typography
-        as={Link}
-        to="/series"
-        // variant="small"
-        // color="white"
-        className="font-medium"
-      >
+      <Typography as={Link} to="/series" className="font-medium">
         <div className="hover:bg-transparent text-gray-500 hover:bg-black hover:text-white  flex items-center gap-2 py-2 pr-4 ">
           Series
         </div>

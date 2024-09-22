@@ -86,7 +86,6 @@ const HomeSeries = ({ items, data }) => {
 
       <div className=" flex justify-center items-center gap-8 flex-wrap px-10 w-full relative mt-10 mb-10 rounded-md ">
         {items.map((item, i) => (
-          // <div className="" >
           <Card
             className="w-[19rem] flex justify-center items-center  bg-gray-900"
             key={i}

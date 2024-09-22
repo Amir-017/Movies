@@ -117,7 +117,6 @@ const DetailsSeries = () => {
   const aboutPostersSeries = () => {
     navigate(`/Detailsseries/${idSeries}/title/${nameSeries}/posters`);
   };
-  // console.log(castShownSeries);
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(!open);
@@ -213,25 +212,35 @@ const DetailsSeries = () => {
                         <div className=" text-xl text-light-green-100 text-center">
                           {cast &&
                             cast.map((member, i) => (
-                              <div className="flex flex-col " key={i}>
-                                <h1 className="text-2xl text-white">
-                                  {i == 1 && member.name}
-                                </h1>
+                              <div
+                                className=" relative flex w-full justify-between"
+                                key={i}
+                              >
+                                <div className="flex flex-col ">
+                                  {i == 0 && (
+                                    <div className="flex justify-between  absolute">
+                                      <div className="flex flex-col ">
+                                        {member.name}{" "}
+                                        <h1 className="text-yellow-800">
+                                          Acting
+                                        </h1>
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
+
+                                <div className="flex flex-col mb-5">
+                                  {i == 2 && (
+                                    <div>
+                                      {member.name}{" "}
+                                      <h1 className="text-yellow-800">
+                                        Acting
+                                      </h1>
+                                    </div>
+                                  )}
+                                </div>
                               </div>
                             ))}
-                          <h1 className="text-yellow-800">Acting</h1>
-                        </div>
-                        <h1 className="text-white">||</h1>
-                        <div className=" text-xl text-light-green-100 text-center">
-                          {cast &&
-                            cast.map((member, i) => (
-                              <div className="flex flex-col " key={i}>
-                                <h1 className="text-2xl text-white">
-                                  {i == 2 && member.name}
-                                </h1>
-                              </div>
-                            ))}
-                          <h1 className="text-yellow-800">Acting</h1>
                         </div>
                       </div>
                       {/*  */}
@@ -239,38 +248,70 @@ const DetailsSeries = () => {
                         <div className=" text-xl text-light-green-100 text-center">
                           {crew &&
                             crew.map((member, i) => (
-                              <div className="flex flex-col " key={i}>
-                                <h1 className="text-2xl text-white">
-                                  {i == 0 && member.name}
-                                </h1>
-                              </div>
-                            ))}
-                          <h1 className="text-yellow-800">Production</h1>
-                        </div>
-                        <h1 className="text-white">||</h1>
-                        <div className=" text-xl text-light-green-100 text-center">
-                          {crew &&
-                            crew.map((member, i) => (
-                              <div className="flex flex-col " key={i}>
-                                <h1 className="text-2xl text-white">
-                                  {i == 2 && member.name}
-                                </h1>
-                              </div>
-                            ))}
-                          <h1 className="text-yellow-800">Direction</h1>
-                        </div>
-                        <h1 className="text-white">||</h1>
+                              <div
+                                className=" relative flex  w-full justify-between"
+                                key={i}
+                              >
+                                <div className="flex flex-col ">
+                                  {i == 1 && (
+                                    <div className="flex justify-between  absolute">
+                                      <div className="flex flex-col ">
+                                        {member.name}{" "}
+                                        <h1 className="text-yellow-800">
+                                          Production
+                                        </h1>
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
 
-                        <div className=" text-xl text-light-green-100 text-center">
-                          {crew &&
-                            crew.map((member, i) => (
-                              <div className="flex flex-col " key={i}>
-                                <h1 className="text-2xl text-white">
-                                  {i == 4 && member.name}
-                                </h1>
+                                <div className="flex flex-col ">
+                                  {i == 2 && (
+                                    <div>
+                                      {member.name}{" "}
+                                      <h1 className="text-yellow-800">
+                                        Direction
+                                      </h1>
+                                    </div>
+                                  )}
+                                </div>
                               </div>
                             ))}
                           <h1 className="text-yellow-800">Production</h1>
+                        </div>
+                        <h1 className="text-white">||</h1>
+                        <div className=" text-xl text-light-green-100 text-center">
+                          {crew &&
+                            crew.map((member, i) => (
+                              <div
+                                className=" relative flex  w-full justify-between"
+                                key={i}
+                              >
+                                <div className="flex flex-col ">
+                                  {i == 1 && (
+                                    <div className="flex justify-between  absolute">
+                                      <div className="flex flex-col ">
+                                        {member.name}{" "}
+                                        <h1 className="text-yellow-800">
+                                          Production
+                                        </h1>
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
+
+                                <div className="flex flex-col ">
+                                  {i == 2 && (
+                                    <div>
+                                      {member.name}{" "}
+                                      <h1 className="text-yellow-800">
+                                        Direction
+                                      </h1>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
                         </div>
                       </div>
                       <div className="flex  justify-evenly items-center text-white text-2xl w-full lg:justify-between  ">

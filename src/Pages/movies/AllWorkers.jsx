@@ -68,14 +68,11 @@ const AllWorkers = () => {
         <div className=" w-full">
           {}
           <div className=" w-full  bg-[#212529] px-10 pt-5 flex justify-center items-center flex-col md:flex-row md:justify-start ">
-            {/* <div className=""> */}
             <img
               src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movieDetails.poster_path}`}
               alt="logo"
-              // width="20%"
               className="rounded mb-5 w-[30%] md:w-[12%]"
             />
-            {/* </div> */}
 
             <div className="w-full flex  flex-col justify-start   px-0 md:justify-center md:px-10 ">
               <h1 className="text-white font-bold  text-3xl text-center md:text-start">
@@ -172,7 +169,6 @@ const AllWorkers = () => {
                           <img
                             src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${actor.profile_path}`}
                             alt="ui/ux review check"
-                            // width="100%"
                           />
                         ) : (
                           <img src={img} width="100%" />

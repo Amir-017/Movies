@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useParams } from "react-router-dom";
 
-import Header from "./component/Header";
 import Home from "./Pages/Home";
 import Footer from "./component/Footer";
 import Movies from "./Pages/movies";
@@ -12,11 +11,11 @@ import AllWorkers from "./Pages/movies/AllWorkers";
 import ReviewMovie from "./Pages/movies/ReviewMovie";
 import VideoMovies from "./Pages/movies/VideoMovies";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getMovieDetails,
-  getMoviesPage,
-} from "./SystmeRdx/Slices/moviesSlices/moviesSlice";
-import axios from "axios";
+// import {
+//   getMovieDetails,
+//   getMoviesPage,
+// } from "./SystmeRdx/Slices/moviesSlices/moviesSlice";
+// import axios from "axios";
 import BackDropsMovie from "./Pages/movies/BackDropsMovie";
 import PostersMovie from "./Pages/movies/PostersMovie";
 import AboutActor from "./Pages/movies/AboutActor";

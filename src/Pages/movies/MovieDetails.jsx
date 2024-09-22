@@ -127,6 +127,7 @@ const MovieDetails = () => {
   ];
 
   ///tabs
+  console.log(typeof parseInt(movieDetails.runtime / 60));
 
   const aboutCastAndCrew = () => {
     navigate(`/movieDetails/${idMovie}/title/${nameMovie}/cast`);
@@ -184,9 +185,10 @@ const MovieDetails = () => {
               }}
             >
               <div className="w-full  ">
-                {/* <div className="w-full opacity-50"></div> */}
                 <div className="w-full pt-5 text-center font-bold grid gap-y-5">
-                  <h1 className="text-[#0DCAF0]  text-3xl ">Movie Details</h1>
+                  <h1 className="text-[#0DCAF0]  text-3xl w-full  ">
+                    Movie Details
+                  </h1>
                   <h1 className="text-light-green-100 text-3xl">
                     {movieDetails.title}
                   </h1>
@@ -195,7 +197,6 @@ const MovieDetails = () => {
                       {movieDetails.release_date} (
                       {movieDetails.original_language})
                     </h1>
-                    {/* <div className=" font-bolder"> */}
                     {genres &&
                       genres.map((gener, i) => (
                         <h1
@@ -206,9 +207,8 @@ const MovieDetails = () => {
                         </h1>
                       ))}
                     <h1 className="text-light-green-100 text-xl font-bold px-5">
-                      {(movieDetails.runtime / 60).toFixed(2)} sec
+                      {(movieDetails.runtime / 60).toFixed(2)} min
                     </h1>
-                    {/* </div> */}
                   </div>
                 </div>
                 <div className="w-full container mx-auto flex flex-col  lg:flex-row  mt-10 ">
@@ -236,70 +236,75 @@ const MovieDetails = () => {
                       </h1>
                     </div>
                     <div className="flex py-10  justify-between items-center w-full">
-                      <div className=" text-xl text-light-green-100 text-center">
+                      <div className="w-full justify-between text-xl text-light-green-100 text-center">
                         {cast &&
                           cast.map((member, i) => (
-                            <div className="flex flex-col " key={i}>
-                              <h1 className="text-2xl text-white">
-                                {i == 1 && member.name}
-                              </h1>
+                            <div
+                              className=" relative flex w-full justify-between"
+                              key={i}
+                            >
+                              <div className="flex flex-col ">
+                                {i == 1 && (
+                                  <div className="flex justify-between  absolute">
+                                    <div className="flex flex-col ">
+                                      {member.name}{" "}
+                                      <h1 className="text-yellow-800">
+                                        Acting
+                                      </h1>
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+
+                              <div className="flex flex-col ">
+                                {i == 2 && (
+                                  <div>
+                                    {member.name}{" "}
+                                    <h1 className="text-yellow-800">Acting</h1>
+                                  </div>
+                                )}
+                              </div>
                             </div>
                           ))}
-                        <h1 className="text-yellow-800">Acting</h1>
-                      </div>
-                      <h1 className="text-white">||</h1>
-                      <div className=" text-xl text-light-green-100 text-center">
-                        {cast &&
-                          cast.map((member, i) => (
-                            <div className="flex flex-col " key={i}>
-                              <h1 className="text-2xl text-white">
-                                {i == 2 && member.name}
-                              </h1>
-                            </div>
-                          ))}
-                        <h1 className="text-yellow-800">Acting</h1>
                       </div>
                     </div>
                     {/*  */}
-                    <div className="flex py-10  justify-between items-center w-full">
-                      <div className=" text-xl text-light-green-100 text-center">
+                    <div className="w-full  ">
+                      <div className="w-full   text-xl text-light-green-100 text-center">
                         {crew &&
                           crew.map((member, i) => (
-                            <div className="flex flex-col " key={i}>
-                              <h1 className="text-2xl text-white">
-                                {i == 0 && member.name}
-                              </h1>
-                            </div>
-                          ))}
-                        <h1 className="text-yellow-800">Production</h1>
-                      </div>
-                      <h1 className="text-white">||</h1>
-                      <div className=" text-xl text-light-green-100 text-center">
-                        {crew &&
-                          crew.map((member, i) => (
-                            <div className="flex flex-col " key={i}>
-                              <h1 className="text-2xl text-white">
-                                {i == 2 && member.name}
-                              </h1>
-                            </div>
-                          ))}
-                        <h1 className="text-yellow-800">Direction</h1>
-                      </div>
-                      <h1 className="text-white">||</h1>
+                            <div
+                              className=" relative flex  w-full justify-between"
+                              key={i}
+                            >
+                              <div className="flex flex-col ">
+                                {i == 1 && (
+                                  <div className="flex justify-between  absolute">
+                                    <div className="flex flex-col ">
+                                      {member.name}{" "}
+                                      <h1 className="text-yellow-800">
+                                        Production
+                                      </h1>
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
 
-                      <div className=" text-xl text-light-green-100 text-center">
-                        {crew &&
-                          crew.map((member, i) => (
-                            <div className="flex flex-col " key={i}>
-                              <h1 className="text-2xl text-white">
-                                {i == 4 && member.name}
-                              </h1>
+                              <div className="flex flex-col ">
+                                {i == 2 && (
+                                  <div>
+                                    {member.name}{" "}
+                                    <h1 className="text-yellow-800">
+                                      Direction
+                                    </h1>
+                                  </div>
+                                )}
+                              </div>
                             </div>
                           ))}
-                        <h1 className="text-yellow-800">Production</h1>
                       </div>
                     </div>
-                    <div className="flex  justify-evenly items-center text-white text-2xl w-full lg:justify-between  ">
+                    <div className="flex flex-col md:flex-row gap-y-3 md:gap-y-0 justify-evenly items-center text-white text-2xl w-full lg:justify-between mt-20   ">
                       <div className="flex flex-col">
                         <h1 className="flex justify-center items-center text-3xl">
                           <BiAddToQueue />
@@ -461,7 +466,6 @@ const MovieDetails = () => {
             </div>
             <div className="  ">
               <div className="flex gap-x-3 text-[#0DCAF0] text-3xl">
-                {/* amer */}
                 <h1 className="hover:text-4xl">
                   <FaFacebook />
                 </h1>
@@ -502,7 +506,6 @@ const MovieDetails = () => {
         <div className="container mx-auto mt-2  text-[#0DCAF0]  ">
           <Button
             onClick={aboutCastAndCrew}
-            // to={`/movieDetails/${idMovie}/title/${nameMovie}`}
             className="text-gray-500  hover:text-white "
           >
             Full Cast And Crew
@@ -766,7 +769,6 @@ const MovieDetails = () => {
                                   backdrops.length > 6 && (
                                     <Button
                                       onClick={aboutBackDropsMovie}
-                                      // to="/"
                                       className="text-inherit  hover:text-[white] "
                                     >
                                       All BackDrops
@@ -777,7 +779,6 @@ const MovieDetails = () => {
                                   posters.length > 6 && (
                                     <Button
                                       onClick={aboutPostersMovie}
-                                      // to="/"
                                       className="text-inherit  hover:text-[white]  mt-10"
                                     >
                                       All Posters

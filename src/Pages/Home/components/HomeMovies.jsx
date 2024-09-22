@@ -4,10 +4,7 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Typography,
-  Avatar,
-  Tooltip,
   Button,
 } from "@material-tailwind/react";
 import ReactStars from "react-stars";
@@ -113,7 +110,6 @@ export const HomeMovies = ({ data, items, moviesHomeLoading }) => {
 
           <div className="container mx-auto flex justify-center items-center gap-8 flex-wrap px-10   mt-10 mb-10  ">
             {items.map((item, i) => (
-              // <div className="" >
               <Card
                 className="w-[19rem] flex justify-center items-center  bg-gray-900"
                 key={i}
