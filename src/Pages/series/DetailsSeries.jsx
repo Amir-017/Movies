@@ -120,6 +120,8 @@ const DetailsSeries = () => {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(!open);
+  // console.log(seriesDetails);
+
   return (
     <div className="">
       <div className="">
@@ -170,8 +172,10 @@ const DetailsSeries = () => {
                     </h1>
                     <div className="w-full flex flex-col md:flex-row  justify-center  text-2xl">
                       <h1 className="text-light-green-100 text-xl font-bold">
-                        {seriesDetails.release_date} (
-                        {seriesDetails.original_language})
+                        {seriesDetails.first_air_date}
+                        <span className="me-2 ms-1">
+                          ({seriesDetails.original_language})
+                        </span>
                       </h1>
                       {genres &&
                         genres.map((gener, i) => (
@@ -182,6 +186,14 @@ const DetailsSeries = () => {
                             {gener.name},
                           </h1>
                         ))}
+                      {seriesDetails.episode_run_time?.map((time, i) => (
+                        <h1
+                          className="ms-2 text-light-green-100 text-xl font-semibold pt-[.10rem]"
+                          key={i}
+                        >
+                          {isNaN(time) ? "" : time == "" ? 0 : time} min
+                        </h1>
+                      ))}
                     </div>
                   </div>
                   <div className="w-full container mx-auto flex flex-col  lg:flex-row  mt-10 ">

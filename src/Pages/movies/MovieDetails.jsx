@@ -127,7 +127,6 @@ const MovieDetails = () => {
   ];
 
   ///tabs
-  console.log(typeof parseInt(movieDetails.runtime / 60));
 
   const aboutCastAndCrew = () => {
     navigate(`/movieDetails/${idMovie}/title/${nameMovie}/cast`);
@@ -144,7 +143,6 @@ const MovieDetails = () => {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(!open);
-  // console.log(videoMovie);
 
   return (
     <div className="">
@@ -200,14 +198,17 @@ const MovieDetails = () => {
                     {genres &&
                       genres.map((gener, i) => (
                         <h1
-                          className="text-light-green-100 text-xl font-bold "
+                          className="text-light-green-100 text-xl font-bold ms-2"
                           key={i}
                         >
                           {gener.name},
                         </h1>
                       ))}
                     <h1 className="text-light-green-100 text-xl font-bold px-5">
-                      {(movieDetails.runtime / 60).toFixed(2)} min
+                      {isNaN(movieDetails.runtime / 60)
+                        ? ""
+                        : movieDetails.runtime}{" "}
+                      min
                     </h1>
                   </div>
                 </div>
